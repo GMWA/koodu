@@ -1,0 +1,2 @@
+pathlib
+PyYAML==6.0
