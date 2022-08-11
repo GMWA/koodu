@@ -1,0 +1,2 @@
+graft genappcode
+global-exclude *.py[cod]
