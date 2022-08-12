@@ -2,6 +2,9 @@
 from .utils import get_files_from_folder, check_all_template, convert_symbols
 
 def main():
+    print("####################################")
+    print("########## KOODU CHECKERS ##########")
+    print("####################################")
     templates = get_files_from_folder()
     valids = check_all_template(templates)
     symbols = convert_symbols(valids)

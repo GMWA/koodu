@@ -1,2 +1,2 @@
-from generator import Generator
-from file import File
+from .generator import Generator
+from .file import File
