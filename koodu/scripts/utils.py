@@ -11,7 +11,7 @@ def get_files_from_folder(folder: Path = Path("./")) ->List[Path]:
 
     Return: The list of all template Path.
     """
-    return [path for path in folder.rglob("*") if "jinja" in path]
+    return [path for path in folder.rglob("**/*") if "jinja" in path]
 
 
 def check_all_template(templates: List[Path]) -> List[bool]:

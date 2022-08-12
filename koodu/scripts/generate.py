@@ -1,9 +1,7 @@
 import argparse
-from re import template
 from typing import List
 from pathlib import Path
-from webbrowser import get
-from ..generator import Generator, File
+from koodu.generator import Generator, File
 
 TEMPLATE_FOLDER = Path("../templates")
 MODEL_FOLDER = Path("../models")
@@ -13,16 +11,19 @@ def get_all_templates(t_dir: Path) -> List[Path]:
 
 
 def main():
+    print("###########################################")
+    print("########## KOODU CODE GENERATION ##########")
+    print("###########################################")
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model", "-m",
         type=str,
-        required=True
+        #required=True
     )
     parser.add_argument(
         "--template", "-t",
         type=str,
-        required=True
+        #required=True
     )
     parser.add_argument(
         "--output", "-o",
@@ -58,6 +59,7 @@ def main():
 
     for a in generator.render():
         print(a)
+    
 
 
 if __name__ == "__main__":
