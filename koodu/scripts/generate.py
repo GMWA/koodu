@@ -1,4 +1,3 @@
-import argparse
 from typing import List
 from pathlib import Path
 from koodu.generator import Generator, File
@@ -10,57 +9,33 @@ def get_all_templates(t_dir: Path) -> List[Path]:
     return [f for f in t_dir.glob() if f.is_file()]
 
 
-def main():
-    print("###########################################")
-    print("########## KOODU CODE GENERATION ##########")
-    print("###########################################")
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--model", "-m",
-        type=str,
-        #required=True
-    )
-    parser.add_argument(
-        "--template", "-t",
-        type=str,
-        #required=True
-    )
-    parser.add_argument(
-        "--output", "-o",
-        type=str,
-        default="./",
-        required=True
-    )
-
-    args = parser.parse_args()
-
-    if not Path(parser.output).is_dir():
+def generate(args):
+    if not Path(args.output).is_dir():
         raise Exception("The Output should be a Folder!")
 
-    t_path = TEMPLATE_FOLDER / args.template
-    m_path = MODEL_FOLDER / args.model + ".json"
-
-    if not Path(t_path/"config.yaml").is_file():
+    if not Path(args.templates/"config.yaml").is_file():
         raise Exception("NOT TEMPLATE CONFIG FILE")
 
-    if t_path.is_dir():
-        raise Exception(f"{t_path} is not an Existing directory")
+    if not Path(args.templates).is_dir():
+        raise Exception(f"{args.templates} is not an Existing directory")
 
-    if not m_path.is_file():
-         raise Exception(f"{m_path} is not an Existing File")
+    if not args.model.endswith(".json"):
+        raise Exception(f"The model should be a json file!")
 
-    with open(m_path, "r") as f:
-            model = f.read()
+    if not Path(args.model).is_file():
+        raise Exception(f"{args.model} is not an Existing file")
+
+    with open(args.model, "r") as f:
+        model = f.read()
+    
+    if model is None:
+        raise Exception(f"{args.model} is not a valid file")
 
     generator = Generator(
         model=model,
-        template_folder=t_path
+        template_folder=args.templates
     )
 
     for a in generator.render():
         print(a)
     
-
-
-if __name__ == "__main__":
-    main()
