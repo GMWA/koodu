@@ -3,12 +3,6 @@ from pathlib import Path
 from koodu.generator import Generator
 from koodu.exceptions import ModelNotFoundException, ModelFileTypeException
 
-TEMPLATE_FOLDER = Path("../templates")
-MODEL_FOLDER = Path("../models")
-
-def get_all_templates(t_dir: Path) -> List[Path]:
-    return [f for f in t_dir.glob() if f.is_file()]
-
 
 def generate(args):
     if not Path(args.output).is_dir():
