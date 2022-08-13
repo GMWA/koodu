@@ -6,6 +6,7 @@ from typing import List, Tuple, Optional, Dict
 from unittest import result
 from jinja2 import DictLoader as JDictLoader, Environment as JEnvironment,Template as JTemplate
 from jinja2.exceptions import TemplateNotFound
+from koodu.generator.file import File
 
 from .utils import get_all_files, load_template_config
 #from generator.utils import read_template_code, read_sample_model_json
@@ -222,9 +223,15 @@ class Generator():
 
         return rendered_outputs
 
-    def render(self):
+    def render(self) -> List[File]:
         "the render method renders a deployment group"
-        return self._render_template_group()
+        result = []
+        for elem in self._render_template_group():
+            #TODO imlement the file logic
+            file = File()
+            result.append(file)
+        
+        return result
 
     def render_template(self, template_name):
         "the render method renders one template"

@@ -35,7 +35,10 @@ def generate(args):
         model=model,
         template_folder=args.templates
     )
+    
+    for file in generator.render():
+        file.write()
 
-    for a in generator.render():
-        print(a)
+    print("Done", "\U00002705")
+    print(f"generated file available at: {args.output}")
     
