@@ -7,6 +7,7 @@ from unittest import result
 from jinja2 import DictLoader as JDictLoader, Environment as JEnvironment,Template as JTemplate
 from jinja2.exceptions import TemplateNotFound
 from koodu.generator.file import File
+from koodu.exceptions import MissingModeException
 
 from .utils import get_all_files, load_template_config
 #from generator.utils import read_template_code, read_sample_model_json
@@ -52,7 +53,7 @@ class Generator():
         #if self.template_group is None:
         #    raise Exception("NO_TEMPLATEGROUP", "No template group found or specified")
         if self.model is None:
-            raise Exception("NO_MODEL", "No model specified")
+            raise MissingModeException("NO_MODEL", "No model specified")
         elif self.configs["templates"] is None:
             raise Exception("NONE_TEMPLATES", "Template Group has no templates attribute")
         elif len(self.configs["templates"])<1:
