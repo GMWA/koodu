@@ -1,6 +1,7 @@
 from typing import List
 from pathlib import Path
-from koodu.generator import Generator, File
+from koodu.generator import Generator
+from koodu.exceptions import ModelNotFoundException, ModelFileTypeException
 
 TEMPLATE_FOLDER = Path("../templates")
 MODEL_FOLDER = Path("../models")
@@ -20,10 +21,10 @@ def generate(args):
         raise Exception(f"{args.templates} is not an Existing directory")
 
     if not args.model.endswith(".json"):
-        raise Exception(f"The model should be a json file!")
+        raise ModelFileTypeException(f"The model should be a json file!")
 
     if not Path(args.model).is_file():
-        raise Exception(f"{args.model} is not an Existing file")
+        raise ModelNotFoundException(f"{args.model} is not an Existing file")
 
     with open(args.model, "r") as f:
         model = f.read()
