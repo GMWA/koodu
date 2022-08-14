@@ -5,7 +5,8 @@ from generator import Generator, File
 
 class TestGenerator(unittest.TestCase):
     def setUp(self):
-      pass
+        # read test model
+        pass
 
     def test_init(self):
         #self.assertEqual("foo".upper(), "FOO")
@@ -28,9 +29,8 @@ class TestGenerator(unittest.TestCase):
         generator_inst = Generator(model=model, template_group=template_group)
         output = generator_inst.render()
         self.assertEqual(len(output), 1)
-        self.assertEqual(output[0]["name"], "Test-Template.js")
-        self.assertEqual(output[0]["content"], "import Otto")
-        should_output = [{"name": "Test-Template.js", "content": "import Otto"}]
+        self.assertEqual(output[0].name, "Test-Template.js")
+        self.assertEqual(output[0].content, "import Otto")
 
     
     def test_genrator_path(self):
@@ -49,9 +49,8 @@ class TestGenerator(unittest.TestCase):
         generator_inst = Generator(model=model, template_group=template_group)
         output = generator_inst.render()
         self.assertEqual(len(output), 1)
-        self.assertEqual(output[0]["name"], "Test-Template.js")
-        self.assertEqual(output[0]["content"], "import Otto")
-        should_output = [{"name": "Test-Template.js", "content": "import Otto"}]
+        self.assertEqual(output[0].name, "Test-Template.js")
+        self.assertEqual(output[0].content, "import Otto")
 
     def test_genrator_path_list(self):
         model = {"entities": [{"name" : "Otto"}, {"name": "Karl"}]}
@@ -69,11 +68,10 @@ class TestGenerator(unittest.TestCase):
         generator_inst = Generator(model=model, template_group=template_group)
         output = generator_inst.render()
         self.assertEqual(len(output), 2)
-        self.assertEqual(output[0]["name"], "Test-Template_Otto.js")
-        self.assertEqual(output[0]["content"], "import Otto")
-        self.assertEqual(output[1]["name"], "Test-Template_Karl.js")
-        self.assertEqual(output[1]["content"], "import Karl")
-        should_output = [{"name": "Test-Template.js", "content": "import Otto"}]
+        self.assertEqual(output[0].name, "Test-Template_Otto.js")
+        self.assertEqual(output[0].content, "import Otto")
+        self.assertEqual(output[1].name, "Test-Template_Karl.js")
+        self.assertEqual(output[1].content, "import Karl")
 
     def test_genrator_no_templates(self):
         model = {"entities": [{"name" : "Otto"}, {"name": "Karl"}]}
@@ -88,9 +86,7 @@ class TestGenerator(unittest.TestCase):
             error_msg= e.args
            
         self.assertEqual(error_msg, ("NO_TEMPLATES", "Template Group has no templates attached."))
-            
 
-        should_output = [{"name": "Test-Template.js", "content": "import Otto"}]
 
     def test_genrator_macros(self):
         model = {"entities": [{"name" : "Otto"}, {"name": "Karl"}]}
