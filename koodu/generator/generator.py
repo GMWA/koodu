@@ -180,7 +180,6 @@ class Generator():
                 return output
 
         if isinstance(model_part, list):
-            #for element in model_part:
             output.append(self._render_model_element(template, model_part, from_list=True))
         elif isinstance(model_part, dict) :
             output.append(self._render_model_element(template, model_part, from_list=False))
