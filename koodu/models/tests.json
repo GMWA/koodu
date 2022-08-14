@@ -1,0 +1,9 @@
+{
+    "test-path": [
+        {"name" : "Otto"},
+        {"name": "Karl"}
+    ],
+    "test-generator": [
+        {"name" : "Otto"}
+    ]
+}
