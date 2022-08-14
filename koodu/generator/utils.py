@@ -30,8 +30,8 @@ def load_template_config(folder: Path) -> List[Dict[str, str]]:
         (dict): a dict where the key are template's name and the value are template's code
     """
     configs = None
-    config_path = folder / "config.yaml"
+    config_path = folder / Path("config.yaml")
     with open(config_path, "r") as fp:
-        configs = yaml.load(fp)
+        configs = yaml.load(fp, Loader=yaml.FullLoader)
     
     return configs

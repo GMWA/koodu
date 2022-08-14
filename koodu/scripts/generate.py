@@ -8,7 +8,7 @@ def generate(args):
     if not Path(args.output).is_dir():
         raise Exception("The Output should be a Folder!")
 
-    if not Path(args.templates/"config.yaml").is_file():
+    if not Path(Path(args.templates)/Path("config.yaml")).is_file():
         raise Exception("NOT TEMPLATE CONFIG FILE")
 
     if not Path(args.templates).is_dir():
@@ -28,11 +28,12 @@ def generate(args):
 
     generator = Generator(
         model=model,
-        template_folder=args.templates
+        template_folder=Path(args.templates) / Path(args.templates)
     )
     
     for file in generator.render():
-        file.write()
+        #file.write()
+        print(file)
 
     print("Done", "\U00002705")
     print(f"generated file available at: {args.output}")
