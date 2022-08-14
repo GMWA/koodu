@@ -8,11 +8,21 @@ class ModelFileTypeException(Exception):
     pass
 
 
-class MissingModeException(Exception):
+class MissingModelException(Exception):
     """Raise when the model is missing"""
+    pass
+
+
+class MissingConfigsException(Exception):
+    """Raise this when the config file missing"""
     pass
 
 
 class TemplateNotFoundException(Exception):
     """Raise when a template file is not found."""
+    pass
+
+
+class NotFolderException(Exception):
+    """Raise when a Path is not a folder."""
     pass

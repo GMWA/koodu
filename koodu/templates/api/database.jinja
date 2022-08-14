@@ -3,8 +3,8 @@ CREATE DATABASE {{full_model.name}};
 
 {% for mod in model %}
 CREATE TABLE {{ mod.name }} (
-    {% for col in mod.attributs %}
+    {% for col in mod.attributs -%}
     {{col.name}} {{col.type}}({{col.size}}),
-    {% endfor %}
+    {%- endfor %}
 );
 {% endfor %}
