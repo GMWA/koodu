@@ -1,3 +1,4 @@
+import json
 from typing import List
 from pathlib import Path
 from koodu.generator import Generator
@@ -21,7 +22,7 @@ def generate(args):
         raise ModelNotFoundException(f"{args.model} is not an Existing file")
 
     with open(args.model, "r") as f:
-        model = f.read()
+        model = json.load(f)
     
     if model is None:
         raise Exception(f"{args.model} is not a valid file")

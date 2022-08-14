@@ -2,7 +2,7 @@ name: api
 templates:
   - template-path: models.jinja
     file-path: /
-    path: /
+    path: /models
     name: model
     file-name: models
     type: py
@@ -10,9 +10,17 @@ templates:
     is-macro: False
   - template-path: controllers.jinja
     file-path: /
-    path: /
+    path: /models
     name: controller
     file-name: controllers
     type: py
+    is-base: False
+    is-macro: False
+  - template-path: database.jinja
+    file-path: /
+    path: /models
+    name: database
+    file-name: database
+    type: sql
     is-base: False
     is-macro: False
