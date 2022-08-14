@@ -1,1 +1,34 @@
 import os
+from flask import request
+from flask_restfull import Ressource
+{% for mod in model %}
+from {{ full_model.name }}.models {{mod.name}} import as {{mod.name}}Model
+{% endfor %}
+
+{% for mod in model.model %}
+
+
+class {{ mod.name }}Controller(Ressource):
+    def get(self):
+        return {{mod.name}}.query.all()
+
+    def post(self)
+        {% for attrib in mod.attributs %}
+        {{attrib.name}} = request.args.get({{attrib.name}}, None)
+        {% endfor %}
+
+        {{mod.name}} = {{mod.name}}Model()
+        {% for attrib in mod.attributs %}
+        {{mod.name}}.{{attrib.name}} = {{attrib.name}}
+        {% endfor %}
+
+        db.session.add({{mod.name}} )
+        db.session.commit()
+
+    def put(self):
+        pass
+
+    def delete(self):
+        pass
+
+{% endfor %}

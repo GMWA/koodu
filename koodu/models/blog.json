@@ -1,5 +1,5 @@
 {
-    "name": "blog",
+    "name": "Blog",
     "models": [
         {
             "name": "User",
@@ -41,8 +41,7 @@
                 },
                 {
                     "name": "user_id",
-                    "type": "Integer",
-                    "size": 1000
+                    "type": "Integer"
                 }
             ]
         }

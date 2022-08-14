@@ -1,11 +1,11 @@
 
 
-from {{ model["name"] }} import db
+from {{ full_model.name }} import db
 
-{% for mod in models["model"] %}
-class model.name(db.Model):
+{% for mod in model %}
+class {{ mod.name }}(db.Model):
     id = db.Column(db.Integer(), primary=True)
-    {% for attrib in mod["attributs"] %}
-    {{ attrib["name"] }} = db.Column(db.{{ attrib["type"] }})
+    {% for attrib in mod.attributs %}
+    {{ attrib.name }} = db.Column(db.{{ attrib.type }})
     {% endfor %}
 {% endfor %}
