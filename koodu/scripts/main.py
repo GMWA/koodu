@@ -10,22 +10,22 @@ def main():
     check = subparser.add_parser("check")
     
     gen.add_argument(
-        "--templates",
         "-t",
+        "--templates",
         type=str,
         required=True,
         help="The Path to the folder that contents the template's files."
     )
     gen.add_argument(
-        "--model",
         "-m",
+        "--model",
         type=str,
         required=True,
         help="The Path to the model file(it should be a json file.)"
     )
     gen.add_argument(
+         "-o",
         "--output",
-        "-o",
         type=str,
         required=True,
         help="The Path to the output files."
@@ -41,7 +41,7 @@ def main():
 
     args = parser.parse_args()
 
-    if args.option == "generate":
+    if args.command == "generate":
         generate(args)
     elif args.command == "check":
         check_templates(args)

@@ -71,7 +71,7 @@ class Generator():
         """Load the templates Informations."""
         result = {}
         for template in self.configs["templates"]:
-            with open(template["template-path"], "r") as fp:
+            with open(self.template_folder / Path(template["template-path"]), "r") as fp:
                 template_code = fp.read()
 
             result[template["name"]] = {
@@ -91,7 +91,7 @@ class Generator():
         
         for template in self.configs["templates"]:
             if template["name"] == template_name:
-                with open(template["template-path"], "r") as fp:
+                with open(self.template_folder / Path(template["template-path"]), "r") as fp:
                     template_code = fp.read()
 
                 found_template = {
@@ -212,24 +212,25 @@ class Generator():
     def _render_template_group(self):
         rendered_outputs = []
 
-        for template in self.template_group["templates"] :
+        for template in self.configs["templates"]:
             output = []
             print("****************")
-            if(not template["is-macro"] and not template["is-base"]):
+            if not template["is-macro"] and not template["is-base"]:
                 output = self._render_template(template["name"])
-                rendered_outputs= rendered_outputs+output
+                rendered_outputs = rendered_outputs + output
 
         return rendered_outputs
 
     def render(self) -> List[File]:
-        "the render method renders a deployment group"
-        result = []
-        for elem in self._render_template_group():
-            #TODO imlement the file logic
-            file = File()
-            result.append(file)
-        
-        return result
+        """the render method renders a deployment group"""
+        return self._render_template_group()
+        #result = []
+        #for elem in self._render_template_group():
+        #    #TODO imlement the file logic
+        #    file = File()
+        #    result.append(file)
+        #
+        #return result
 
     def render_template(self, template_name):
         """The render method renders one template"""
