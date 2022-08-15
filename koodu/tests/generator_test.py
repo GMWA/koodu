@@ -6,6 +6,8 @@ from generator import Generator, File
 
 MODEL_PATH = "../models/test.json"
 TEMPLATE_PATH = "../template/tests"
+
+
 class TestGenerator(unittest.TestCase):
     def setUp(self):
         self.output = Path("./output")
