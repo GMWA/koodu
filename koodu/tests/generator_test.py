@@ -1,71 +1,58 @@
 import unittest
+import json
 
+from pathlib import Path
 from generator import Generator, File
 
-
+MODEL_PATH = "../models/test.json"
+TEMPLATE_PATH = "../template/tests"
 class TestGenerator(unittest.TestCase):
     def setUp(self):
-        # read test model
-        pass
+        self.output = Path("./output")
+        self.template_path = Path(TEMPLATE_PATH)
+        self.model = self.load_model(Path(MODEL_PATH))
+
+        
 
     def test_init(self):
         #self.assertEqual("foo".upper(), "FOO")
         pass
 
+    def load_model(model_path: Path) ->str:
+        with open(MODEL_PATH, "r") as fp:
+            model = json.loads(fp.read())
+        return model
+
 
     def test_genrator_base(self):
-        model = {"name" : "Otto"}
-        template_group = {
-            "name": "testGroup",
-            "templates": [{
-                "name": "Test-Template",
-                "path": "",
-                "templateType": "js",
-                "templateCode": "import {{model.name}}",
-                "isMacro": False
-            }]
-        }
-
-        generator_inst = Generator(model=model, template_group=template_group)
-        output = generator_inst.render()
+        generator = Generator(
+            model=self.model,
+            template_folder=self.template_path,
+            output=self.output
+        )
+        output = generator.render()
         self.assertEqual(len(output), 1)
         self.assertEqual(output[0].name, "Test-Template.js")
         self.assertEqual(output[0].content, "import Otto")
 
     
     def test_genrator_path(self):
-        model = {"entity": {"name" : "Otto"}}
-        template_group = {
-            "name": "testGroup",
-            "templates": [{
-                "name": "Test-Template",
-                "path": "/entity",
-                "templateType": "js",
-                "templateCode": "import {{model.name}}",
-                "isMacro": False
-            }]
-        }
-
-        generator_inst = Generator(model=model, template_group=template_group)
+        generator_inst = Generator(
+            model=self.model,
+            template_folder=self.template_path,
+            output=self.output    
+        )
         output = generator_inst.render()
         self.assertEqual(len(output), 1)
         self.assertEqual(output[0].name, "Test-Template.js")
         self.assertEqual(output[0].content, "import Otto")
 
     def test_genrator_path_list(self):
-        model = {"entities": [{"name" : "Otto"}, {"name": "Karl"}]}
-        template_group = {
-            "name": "testGroup",
-            "templates": [{
-                "name": "Test-Template",
-                "path": "entities",
-                "templateType": "js",
-                "templateCode": "import {{model.name}}",
-                "isMacro": False
-            }]
-        }
-
-        generator_inst = Generator(model=model, template_group=template_group)
+        generator_inst = Generator(
+            model=self.model,
+            template_folder=self.template_path,
+            output=self.output
+        )
         output = generator_inst.render()
         self.assertEqual(len(output), 2)
         self.assertEqual(output[0].name, "Test-Template_Otto.js")
@@ -74,14 +61,13 @@ class TestGenerator(unittest.TestCase):
         self.assertEqual(output[1].content, "import Karl")
 
     def test_genrator_no_templates(self):
-        model = {"entities": [{"name" : "Otto"}, {"name": "Karl"}]}
-        template_group = {
-            "name": "testGroup",
-            "templates": []
-        }
         error_msg = ""
         try:
-            generator_inst = Generator(model=model, template_group=template_group)
+            generator = Generator(
+                model=self.model,
+                template_folder=self.template_path,
+                output=self.output
+            )
         except Exception as e:
             error_msg= e.args
            
@@ -89,20 +75,12 @@ class TestGenerator(unittest.TestCase):
 
 
     def test_genrator_macros(self):
-        model = {"entities": [{"name" : "Otto"}, {"name": "Karl"}]}
-        template_group = {
-            "name": "testGroup",
-            "templates": [{
-                "name": "Test-Template",
-                "path": "entities",
-                "templateType": "js",
-                "templateCode": "import {{model.name}}",
-                "isMacro": True
-            }]
-        }
-
-        generator_inst = Generator(model=model, template_group=template_group)
-        output = generator_inst.render()
+        generator = Generator(
+            model=self.model,
+            template_folder=self.template_path,
+            output=self.output
+        )
+        output = generator.render()
         self.assertEqual(len(output), 0)
 
     def test_genrator_datei_name(self):

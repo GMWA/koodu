@@ -5,5 +5,13 @@
     ],
     "test-generator": [
         {"name" : "Otto"}
+    ],
+    "entities": [
+        {"name" : "Otto"},
+        {"name": "Karl"}
+    ],
+    "macros": [
+        {"name" : "Otto"},
+        {"name": "Karl"}
     ]
 }
