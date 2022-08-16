@@ -1,13 +1,14 @@
 import argparse
 
 from koodu.scripts.generate import generate
-from koodu.scripts.checks import check_templates
+from koodu.scripts.checks import check_templates, list_command
 
 def main():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="command")
     gen = subparser.add_parser("generate")
     check = subparser.add_parser("check")
+    _list = subparser.add_parser("list")
     
     gen.add_argument(
         "-t",
@@ -39,12 +40,21 @@ def main():
         help="The Path to the folder that contents the template's files."
     )
 
+    _list.add_argument(
+        "option",
+        type=str,
+        choices=["models", "m", "templates", "t"],
+        help="The option: what you want to list(model(m) or template(t))"
+    )
+
     args = parser.parse_args()
 
     if args.command == "generate":
         generate(args)
     elif args.command == "check":
         check_templates(args)
+    elif args.command == "list":
+        list_command(args)
 
 
 if __name__ == "__main__":
