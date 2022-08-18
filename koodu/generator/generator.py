@@ -141,7 +141,7 @@ class Generator():
         return filepath
     
 
-    def _render_model_element(self, template, model_element, from_list):
+    def render_model(self, template, model_element, from_list):
         ret_value="Nothing as been generated."
         try:
             jinja_template = self.jinja_env.get_template(template["name"])
@@ -161,7 +161,7 @@ class Generator():
             "content": ret_value
         }
 
-    def _render_template(self, name: str) -> List[Dict[str, str]]:
+    def render_template(self, name: str) -> List[Dict[str, str]]:
         output = []
         template = self._get_template_by_name(name)
         model_part = self.model
@@ -180,9 +180,9 @@ class Generator():
                 return output
 
         if isinstance(model_part, list):
-            output.append(self._render_model_element(template, model_part, from_list=True))
+            output.append(self.render_model(template, model_part, from_list=True))
         elif isinstance(model_part, dict) :
-            output.append(self._render_model_element(template, model_part, from_list=False))
+            output.append(self.render_model(template, model_part, from_list=False))
         else: 
             output.append({
                 "name": name,
@@ -191,14 +191,13 @@ class Generator():
             })                    
         return output
 
-    def _render_template_group(self):
+    def render_templates(self):
         rendered_outputs = []
 
         for template in self.configs["templates"]:
             output = []
-            #print("****************")
             if not template["is-macro"] and not template["is-base"]:
-                output = self._render_template(template["name"])
+                output = self.render_template(template["name"])
                 rendered_outputs = rendered_outputs + output
 
         return rendered_outputs
@@ -207,7 +206,7 @@ class Generator():
         """the render method renders a deployment group."""
         
         result = []
-        for elem in self._render_template_group():
+        for elem in self.render_templates():
             name = elem["name"]
             content = elem["content"]
             filepath: str = elem["filepath"]
@@ -231,7 +230,7 @@ class Generator():
         """The render method renders one template"""
         template = self._get_template_by_name(template_name)
         if (template):
-            return self._render_template(template["name"])
+            return self.render_template(template["name"])
         return {"name": f"ERR: {template_name}", "content": "template not found."}
 
     def list_templates(self):
