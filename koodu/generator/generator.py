@@ -24,8 +24,10 @@ class Objectview():
             yield item
 
 class Generator():
-    """The Generator of the Code. It become Template and Model as parameter and
-        generate files's content base on them..
+    """The Generator is the Core of the engine, it takes as parameters a model, the
+        path to the template folder, and the path of the folder where the generated
+        code will be saved and it contains different methods that allow us to generate
+        our code from the model and templates.
     """
 
     def __init__(self, template_folder: Path, model: str=None, output: Path=Path("./")) -> None:
@@ -46,7 +48,7 @@ class Generator():
         elif len(self.configs["templates"])<1:
             raise Exception("NO_TEMPLATES", "Template Group has no templates attached.")
         else:
-            templates = self._get_templates()
+            templates = self.get_templates()
             self.jinja_env = JEnvironment(loader=JDictLoader(templates))
             self.valid = True
     
@@ -55,16 +57,7 @@ class Generator():
         Templates: {self.list_templates()}
         """
 
-    def _get_template_code(self, template) -> str:
-        """Gets the jinja expression out of the template object"""
-        if template["is-macro"]:
-            return f"""{{% macro {template['template-code']}({'model'}) -%}}
-                    {template['template-code']}
-                    {{%- endmacro %}}"""
-        else:
-            return template['template-code']
-
-    def _get_templates(self) -> Dict[str, Dict[str, str]]:
+    def get_templates(self) -> Dict[str, Dict[str, str]]:
         """Load the templates Informations."""
         result = {}
         for template in self.configs["templates"]:
@@ -75,7 +68,7 @@ class Generator():
         
         return result
 
-    def _get_template_by_name(self, template_name: str) ->Dict[str, str]:
+    def get_template_by_name(self, template_name: str) ->Dict[str, str]:
         """Find a Template from the list of template with it name."""
         found_template = None
         
@@ -98,7 +91,7 @@ class Generator():
 
     def print_templates(self) -> Dict[str, Dict[str, str]]:
         """Get the liste of Template"""
-        return self._get_templates()
+        return self.get_templates()
 
 
     def render_file_name(self, template, model) -> str: 
@@ -145,7 +138,6 @@ class Generator():
         ret_value="Nothing as been generated."
         try:
             jinja_template = self.jinja_env.get_template(template["name"])
-            #logging.warning(self.jinja_env)
             args = { "model" : Objectview(model_element), "full_model": self.model}
             ret_value = jinja_template.render(args)
 
@@ -161,9 +153,9 @@ class Generator():
             "content": ret_value
         }
 
-    def render_template(self, name: str) -> List[Dict[str, str]]:
+    def _render_template(self, name: str) -> List[Dict[str, str]]:
         output = []
-        template = self._get_template_by_name(name)
+        template = self.get_template_by_name(name)
         model_part = self.model
         path_steps = [elem for elem in template["path"].split("/") if elem]
 
@@ -197,7 +189,7 @@ class Generator():
         for template in self.configs["templates"]:
             output = []
             if not template["is-macro"] and not template["is-base"]:
-                output = self.render_template(template["name"])
+                output = self._render_template(template["name"])
                 rendered_outputs = rendered_outputs + output
 
         return rendered_outputs
@@ -228,9 +220,9 @@ class Generator():
 
     def render_template(self, template_name):
         """The render method renders one template"""
-        template = self._get_template_by_name(template_name)
+        template = self.get_template_by_name(template_name)
         if (template):
-            return self.render_template(template["name"])
+            return self._render_template(template["name"])
         return {"name": f"ERR: {template_name}", "content": "template not found."}
 
     def list_templates(self):
