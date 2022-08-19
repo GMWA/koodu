@@ -26,3 +26,8 @@ class TemplateNotFoundException(Exception):
 class NotFolderException(Exception):
     """Raise when a Path is not a folder."""
     pass
+
+
+class BadArgumentsException(Exception):
+    """Raise the passed arguments are incorect"""
+    pass
