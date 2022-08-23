@@ -8,11 +8,18 @@ from koodu.exceptions import NotFolderException, MissingConfigsException
 def generate(args):
     if not Path(args.output).is_dir():
         raise NotFolderException("The Output should be a Folder!")
+    
+    # check if the input template path is a whole path
+    if "/" in args.templates or "\\" in args.templates:
+        template_path = Path(args.templates)
+    else:
 
-    if not Path(Path(args.templates)/Path("config.yaml")).is_file():
+        template_path = Path("./koodu/templates").resolve() / Path(args.templates)
+
+    if not Path(template_path/Path("config.yaml")).is_file():
         raise MissingConfigsException("NOT TEMPLATE CONFIG FILE")
 
-    if not Path(args.templates).is_dir():
+    if not template_path.is_dir():
         raise NotFolderException(f"{args.templates} is not an Existing directory")
 
     if not args.model.endswith(".json"):
@@ -29,7 +36,7 @@ def generate(args):
 
     generator = Generator(
         model=model,
-        template_folder=Path(args.templates) / Path(args.templates),
+        template_folder=template_path,
         output=Path(args.output)
     )
     
