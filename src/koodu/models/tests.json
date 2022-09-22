@@ -1,0 +1,17 @@
+{
+    "test-path": [
+        {"name" : "Otto"},
+        {"name": "Karl"}
+    ],
+    "test-generator": [
+        {"name" : "Otto"}
+    ],
+    "entities": [
+        {"name" : "Otto"},
+        {"name": "Karl"}
+    ],
+    "macros": [
+        {"name" : "Otto"},
+        {"name": "Karl"}
+    ]
+}
