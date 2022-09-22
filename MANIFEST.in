@@ -1,2 +1,2 @@
-graft genappcode
+graft koodu
 global-exclude *.py[cod]
