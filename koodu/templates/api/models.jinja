@@ -1,9 +1,0 @@
-from {{ full_model.name }} import db
-
-{% for mod in model %}
-class {{ mod.name }}(db.Model):
-    id = db.Column(db.Integer(), primary=True)
-    {% for attrib in mod.attributs -%}
-    {{ attrib.name }} = db.Column(db.{{ attrib.type }}({{attrib.size}}))
-    {% endfor %}
-{% endfor %}
