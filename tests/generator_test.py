@@ -15,10 +15,10 @@ class TestGenerator(unittest.TestCase):
         self.model = self.load_model(Path(MODEL_PATH))
 
     def test_init(self):
-        #self.assertEqual("foo".upper(), "FOO")
+        # self.assertEqual("foo".upper(), "FOO")
         pass
 
-    def load_model(model_path: Path) ->str:
+    def load_model(model_path: Path) -> str:
         with open(MODEL_PATH, "r") as fp:
             model = json.loads(fp.read())
         return model
@@ -33,12 +33,12 @@ class TestGenerator(unittest.TestCase):
         self.assertEqual(len(output), 1)
         self.assertEqual(output[0].name, "Test-Template.js")
         self.assertEqual(output[0].content, "import Otto")
-    
+
     def test_genrator_path(self):
         generator_inst = Generator(
             model=self.model,
             template_folder=self.template_path,
-            output=self.output    
+            output=self.output
         )
         output = generator_inst.render()
         self.assertEqual(len(output), 1)
@@ -66,9 +66,10 @@ class TestGenerator(unittest.TestCase):
                 template_folder=self.template_path,
                 output=self.output
             )
+            print(generator)
         except Exception as e:
-            error_msg= e.args
-           
+            error_msg = e.args
+
         self.assertEqual(error_msg, ("NO_TEMPLATES", "Template Group has no templates attached."))
 
     def test_genrator_macros(self):
@@ -88,6 +89,7 @@ class TestGenerator(unittest.TestCase):
 
     def tearDown(self):
         pass
+
 
 if __name__ == "__main__":
     unittest.main()
