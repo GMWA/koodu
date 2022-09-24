@@ -2,7 +2,7 @@ import unittest
 import json
 
 from pathlib import Path
-from generator import Generator, File
+from koodu import Generator, File
 
 MODEL_PATH = "../models/test.json"
 TEMPLATE_PATH = "../template/tests"
