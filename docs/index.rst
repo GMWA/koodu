@@ -10,7 +10,11 @@ Welcome to Koodu's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+Installation
+============
+.. toctree::
+   :maxdepth: 2
+   :caption: Installation:
 
 Indices and tables
 ==================

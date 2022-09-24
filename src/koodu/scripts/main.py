@@ -3,13 +3,14 @@ import argparse
 from koodu.scripts.generate import generate
 from koodu.scripts.checks import check_templates, list_command
 
+
 def main():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="command")
     gen = subparser.add_parser("generate")
     check = subparser.add_parser("check")
     _list = subparser.add_parser("list")
-    
+
     gen.add_argument(
         "-t",
         "--templates",
@@ -25,7 +26,7 @@ def main():
         help="The Path to the model file(it should be a json file.)"
     )
     gen.add_argument(
-         "-o",
+        "-o",
         "--output",
         type=str,
         required=True,

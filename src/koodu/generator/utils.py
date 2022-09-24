@@ -20,9 +20,10 @@ def get_all_files(folder: Path) -> Dict[str, Path]:
 
     return result
 
+
 def load_template_config(folder: Path) -> List[Dict[str, str]]:
     """Read the template config file.
-    
+
     Args:
         folder (Path): the path to the folder to iterate on.
 
@@ -33,5 +34,5 @@ def load_template_config(folder: Path) -> List[Dict[str, str]]:
     config_path = folder / Path("config.yaml")
     with open(config_path, "r") as fp:
         configs = yaml.load(fp, Loader=yaml.FullLoader)
-    
+
     return configs

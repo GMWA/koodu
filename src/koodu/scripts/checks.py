@@ -1,9 +1,9 @@
 from typing import Dict
 from pathlib import Path
-from unittest import result
 from koodu.scripts.utils import get_files_from_folder, check_all_template
 from koodu.scripts.utils import convert_symbols
 from koodu.exceptions import BadArgumentsException
+
 
 def check_templates(args) -> None:
     if not Path(args.templates).is_dir():
@@ -12,15 +12,19 @@ def check_templates(args) -> None:
     templates = get_files_from_folder()
     valids = check_all_template(templates)
     symbols = convert_symbols(valids)
-    
+
     for (path, status) in zip(templates, symbols):
         print(path, status)
+
 
 def list_command(args) -> Dict[str, str]:
     if args.option == "models" or args.option == "m":
         model_path = Path(Path("./koodu/models").resolve())
 
-        models = [elem for elem in model_path.glob("*") if str(elem).endswith(".json") or str(elem).endswith(".yaml")]
+        models = [
+            elem for elem in model_path.glob("*")
+            if str(elem).endswith(".json") or str(elem).endswith(".yaml")
+        ]
         for model in models:
             name = model.stem
             print(f"{name}:\t{model}")
@@ -33,4 +37,4 @@ def list_command(args) -> Dict[str, str]:
             name = template.stem
             print(f"{name}:\t{template}")
     else:
-        raise BadArgumentsException(f"the passed arguments do not match the requirements!")
+        raise BadArgumentsException("the passed arguments do not match the requirements!")

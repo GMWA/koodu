@@ -4,7 +4,7 @@ from jinja2 import Environment
 from jinja2.exceptions import TemplateSyntaxError
 
 
-def get_files_from_folder(folder: Path = Path("./")) ->List[Path]:
+def get_files_from_folder(folder: Path = Path("./")) -> List[Path]:
     """Recusively get all template in a Folder
     Args:
         folder (Path): The path to the folder.
@@ -16,7 +16,7 @@ def get_files_from_folder(folder: Path = Path("./")) ->List[Path]:
 
 def check_all_template(templates: List[Path]) -> List[bool]:
     """Check if all template in a list are valid jinja Template.
-    
+
     Args:
         templates (List(Path)): the liste of template
 
@@ -30,10 +30,10 @@ def check_all_template(templates: List[Path]) -> List[bool]:
     for path in templates:
         try:
             with open(path, "r") as fp:
-                template= fp.read()
-            
+                template = fp.read()
+
             env.parse(template)
-            
+
             result.append(True)
         except TemplateSyntaxError:
             result.append(False)
@@ -43,7 +43,7 @@ def check_all_template(templates: List[Path]) -> List[bool]:
 
 def convert_symbols(symbols: List[bool]) -> List[str]:
     """Convert a list if bolean to a list of emoji.
-    
+
     Args:
         symbols (List(bool)): the list of symbols
 
@@ -56,5 +56,5 @@ def convert_symbols(symbols: List[bool]) -> List[str]:
             emojis.append("\U00002705")
         else:
             emojis.append("\U0000274C")
-    
+
     return emojis
