@@ -24,3 +24,11 @@ templates:
     type: sql
     is-base: False
     is-macro: False
+  - template-path: parser.jinja
+    file-path: /
+    path: /api/name
+    name: parser
+    file-name: parser
+    type: py
+    is-base: False
+    is-macro: False
