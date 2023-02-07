@@ -13,7 +13,7 @@ def generate(args):
     if "/" in args.templates or "\\" in args.templates:
         template_path = Path(args.templates)
     else:
-        template_path = Path("./koodu/templates").resolve() / Path(args.templates)
+        template_path = (Path("").parent.parent / Path(args.templates)).resolve()
 
     if not Path(template_path / Path("config.yaml")).is_file():
         raise MissingConfigsException("NOT TEMPLATE CONFIG FILE")
