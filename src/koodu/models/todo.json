@@ -27,7 +27,22 @@
             ]
         },
         {
-            "name": "Post",
+            "name": "Category",
+            "attributs": [
+                {
+                    "name": "name",
+                    "type": "String",
+                    "size": 128
+                },
+                {
+                    "name": "description",
+                    "type": "Text",
+                    "size": 1000
+                }
+            ]
+        },
+        {
+            "name": "Todo",
             "attributs": [
                 {
                     "name": "title",
@@ -35,9 +50,14 @@
                     "size": 255
                 },
                 {
-                    "name": "text",
+                    "name": "description",
                     "type": "Text",
                     "size": 1000
+                },
+                {
+                    "name": "category_id",
+                    "type": "reference",
+                    "model": "Category"
                 },
                 {
                     "name": "user_id",

@@ -1,17 +1,38 @@
 {
     "test-path": [
-        {"name" : "Otto"},
-        {"name": "Karl"}
+        {
+            "name": "Otto",
+            "type": "String"
+        },
+        {
+            "name": "Karl",
+            "type": "String"
+        }
     ],
     "test-generator": [
-        {"name" : "Otto"}
+        {
+            "name": "Otto",
+            "type": "String"
+        }
     ],
     "entities": [
-        {"name" : "Otto"},
-        {"name": "Karl"}
+        {
+            "name": "Otto",
+            "type": "String"
+        },
+        {
+            "name": "Karl",
+            "type": "String"
+        }
     ],
     "macros": [
-        {"name" : "Otto"},
-        {"name": "Karl"}
+        {
+            "name": "Otto",
+            "type": "String"
+        },
+        {
+            "name": "Karl",
+            "type": "String"
+        }
     ]
 }
