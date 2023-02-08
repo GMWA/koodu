@@ -26,7 +26,7 @@ templates:
     is-macro: False
   - template-path: parser.jinja
     file-path: /
-    path: /api/name
+    path: /models
     name: parser
     file-name: parser
     type: py
