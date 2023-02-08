@@ -197,7 +197,7 @@ class Generator():
             output = []
             if not template["is-macro"] and not template["is-base"]:
                 output = self._render_template(template["name"])
-                rendered_outputs = rendered_outputs + output
+                rendered_outputs.extend(output)
 
         return rendered_outputs
 

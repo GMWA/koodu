@@ -17,6 +17,8 @@ class File(object):
 
     def write(self):
         if not self.is_binary:
+            if not self.root.is_dir(): # if the parent is not directory
+                self.root.mkdir(exist_ok=True, parents=True) # create it
             with open(self.root / self.name, "w") as fp:
                 fp.write(self.content)
         else:
