@@ -1,5 +1,5 @@
 {
-    "name": "Blog",
+    "name": "Todo",
     "models": [
         {
             "name": "User",
