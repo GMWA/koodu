@@ -170,7 +170,6 @@ class Generator():
             try:
                 model_part = self.model[step]
             except:
-                print(f"\n\n template path {template['path']} \n\n model {model_part} \n\n")
                 output.append({
                     "name": name,
                     "filepath": template["file-path"],
