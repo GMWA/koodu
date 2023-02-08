@@ -43,4 +43,3 @@ def generate(args):
         file.write()
 
     print("Done", "\U00002705")
-    print(f"generated file available at: {args.output}")
