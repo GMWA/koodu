@@ -4,12 +4,25 @@ from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 {% for mod in model %}
-from {{ full_model.name.lower() }}.routers.{{ mod }} import router as {{ mod }}_router
+{%- if  mod.name.lower().endswith("y") %}
+from {{full_model.name.lower()}}.routers.{{mod.name.lower()[0:-1]}}ies import router as {{mod.name.lower()[0:-1]}}ies_router
+{%- elif mod.name.lower().endswith("s") %}
+from {{full_model.name.lower()}}.routers.{{mod.name.lower()}} import router as {{mod.name.lower()}}_router
+{%- else %}
+from {{full_model.name.lower()}}.routers.{{mod.name.lower()}}s import router as {{mod.name.lower()}}s_router
+{%- endif %}
 {%- endfor %}
 
-app = FastAPI(docs_url="/")
-{% for mod in model %}
-app.include_router({{ mod }}_router)
+
+app = FastAPI()
+{%- for mod in model %}
+{%- if  mod.name.lower().endswith("y") %}
+app.include_router({{mod.name.lower()[0:-1]}}ies_router)
+{%- elif mod.name.lower().endswith("s") %}
+app.include_router({{mod.name.lower()}}_router)
+{%- else %}
+app.include_router({{mod.name.lower()}}s_router)
+{%- endif %}
 {%- endfor %}
 
 app.add_middleware(
