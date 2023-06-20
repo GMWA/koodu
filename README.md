@@ -16,7 +16,6 @@ Clone this repository and run:
 python -m pip install .
 ```
 
-
 ## Usage as CLI
 
 ### List the available templates
@@ -50,7 +49,7 @@ from koodu.generator import Generator
 with open(Path("path-to-model"), "r", encoding="utf-8") as fp:
     model = json.loads(fp.read())
 
-temptemplate_path = Path("path-to-template")
+template_path = Path("path-to-template")
 output_path = Path("output-path")
 generator = Generator(
     model=model,

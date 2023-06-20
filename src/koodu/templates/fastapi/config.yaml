@@ -1,0 +1,34 @@
+name: tests
+templates:
+  - template-path: test-path.jinja
+    file-path: /
+    path: /test-path
+    name: test-path
+    file-name: test-path
+    type: js
+    is-base: False
+    is-macro: False
+  - template-path: entities.jinja
+    file-path: /
+    path: /entities
+    name: entities
+    file-name: entities
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: macros.jinja
+    file-path: /
+    path: /macros
+    name: macros
+    file-name: macros
+    type: py
+    is-base: False
+    is-macro: True
+  - template-path: test-gen.jinja
+    file-path: /
+    path: /test-generator
+    name: test-generator
+    file-name: test-generator
+    type: js
+    is-base: False
+    is-macro: False
