@@ -1,0 +1,21 @@
+from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+load_dotenv()
+{% for mod in model %}
+from {{ full_model.name.lower() }}.routers.{{ mod }} import router as {{ mod }}_router
+{%- endfor %}
+
+app = FastAPI(docs_url="/")
+{% for mod in model %}
+app.include_router({{ mod }}_router)
+{%- endfor %}
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # origins we allow
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
