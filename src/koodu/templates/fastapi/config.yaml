@@ -26,7 +26,7 @@ templates:
     is-macro: False
   - template-path: main.jinja
     file-path: /
-    path: /
+    path: /models
     name: main
     file-name: main
     type: py
@@ -34,8 +34,8 @@ templates:
     is-macro: False
   - template-path: models.jinja
     file-path: /
-    path: /
-    name: models
+    path: /models
+    name: model
     file-name: models
     type: py
     is-base: False
