@@ -10,7 +10,7 @@ templates:
     is-macro: False
   - template-path: database.jinja
     file-path: /
-    path: /{{app_name}}/
+    path: /
     name: database
     file-name: database
     type: py
@@ -18,7 +18,7 @@ templates:
     is-macro: False
   - template-path: dependencies.jinja
     file-path: /
-    path: /{{app_name}}/
+    path: /
     name: dependencies
     file-name: dependencies
     type: py
@@ -26,7 +26,7 @@ templates:
     is-macro: False
   - template-path: main.jinja
     file-path: /
-    path: /{{app_name}}/
+    path: /
     name: main
     file-name: main
     type: py
@@ -34,23 +34,23 @@ templates:
     is-macro: False
   - template-path: models.jinja
     file-path: /
-    path: /{{app_name}}/
+    path: /
     name: models
     file-name: models
     type: py
     is-base: False
     is-macro: False
-  - template-path: routers.jinja
+  - template-path: routers/routers.jinja
     file-path: /routers/
-    path: /{{app_name}}/routers/
+    path: /routers/
     name: routers
     file-name: routers
     type: py
     is-base: False
     is-macro: False
-  - template-path: schemas.jinja
+  - template-path: schemas/schemas.jinja
     file-path: /schemas/
-    path: /{{app_name}}/schemas/
+    path: /schemas/
     name: schemas
     file-name: schemas
     type: py
