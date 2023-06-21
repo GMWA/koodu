@@ -3,15 +3,15 @@ from typing import Union
 from pydantic import BaseModel
 
 
-class {{model}}Base(BaseModel):
+class {{ model.name }}Base(BaseModel):
     name: str
 
 
-class {{model}}Create({{model}}Base):
+class {{ model.name }}Create({{ model.name }}Base):
     description: Union[str, None] = None
 
 
-class {{model}}({{model}}Base):
+class {{ model.name }}({{ model.name }}Base):
     id: int
     description: Union[str, None] = None
     created_at: str
