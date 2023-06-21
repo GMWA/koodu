@@ -1,5 +1,13 @@
 name: fastapi
 templates:
+  - template-path: requirements.jinja
+    file-path: /
+    path: /
+    name: requirements
+    file-name: requirements
+    type: txt
+    is-base: False
+    is-macro: False
   - template-path: manage.jinja
     file-path: /
     path: /
