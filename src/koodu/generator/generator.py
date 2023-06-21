@@ -106,7 +106,7 @@ class Generator():
         """
         if len(template["file-name"]) > 0:
             args = {
-                "model": Objectview(model),
+                "model": model,
                 "full_model": self.model
             }
             tm = JTemplate(template["file-name"])
@@ -140,20 +140,24 @@ class Generator():
         return filepath
 
     def render_model(self, template, model_element, from_list):
+        model_element_first_key = list(model_element.keys())[0]
         ret_value = "Nothing as been generated."
-        try:
-            jinja_template = self.jinja_env.get_template(template["name"])
-            args = {
-                "model": Objectview(model_element),
-                "full_model": self.model
-            }
-            ret_value = jinja_template.render(args)
-        except TemplateNotFound:
-            self.last_error = f"Could not find template in {template['name']}"
-            ret_value = self.last_error
-            logging.error(self.last_error)
-        except Exception as ex:
-            ret_value = f"Exception in {template['name']}: {str(ex)}"
+        if(model_element_first_key):
+            try:
+                jinja_template = self.jinja_env.get_template(template["name"])
+                args = {
+                    "model": model_element if from_list else Objectview(model_element),
+                    "full_model": self.model
+                }
+                ret_value = jinja_template.render(args)
+            except TemplateNotFound:
+                self.last_error = f"Could not find template in {template['name']}"
+                ret_value = self.last_error
+                logging.error(self.last_error)
+            except Exception as ex:
+                ret_value = f"Exception in {template['name']}: {str(ex)}"
+        else:
+            ret_value = "Part of the Model not found or empty"
         return {
             "name": self.render_file_name(template, model_element),
             "filepath": self.render_file_path(template, model_element),
@@ -179,7 +183,8 @@ class Generator():
                 return output
 
         if isinstance(model_part, list):
-            output.append(self.render_model(template, model_part, from_list=True))
+            for element in model_part:
+                output.append(self.render_model(template, element, from_list=True))
         elif isinstance(model_part, dict):
             output.append(self.render_model(template, model_part, from_list=False))
         else:
