@@ -44,7 +44,7 @@ templates:
     file-path: /{{full_model.name.lower()}}/routers
     path: /models
     name: routers
-    file-name: routers
+    file-name: '{{model.name.lower()}}'
     type: py
     is-base: False
     is-macro: False
@@ -52,7 +52,7 @@ templates:
     file-path: /{{full_model.name.lower()}}/schemas
     path: /models
     name: schemas
-    file-name: schemas
+    file-name: '{{model.name.lower()}}'
     type: py
     is-base: False
     is-macro: False
