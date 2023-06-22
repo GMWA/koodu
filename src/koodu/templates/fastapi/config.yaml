@@ -52,7 +52,7 @@ templates:
     file-path: /{{full_model.name.lower()}}/routers
     path: /models
     name: routers
-    file-name: '{{model.name.lower()}}'
+    file-name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
     type: py
     is-base: False
     is-macro: False
@@ -60,7 +60,7 @@ templates:
     file-path: /{{full_model.name.lower()}}/schemas
     path: /models
     name: schemas
-    file-name: '{{model.name.lower()}}'
+    file-name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
     type: py
     is-base: False
     is-macro: False
