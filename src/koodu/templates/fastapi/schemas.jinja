@@ -1,20 +1,30 @@
 from typing import Union
-
 from pydantic import BaseModel
 
 
 class {{ model.name }}Base(BaseModel):
-    name: str
+{%- for attrib in model.attributs -%}
+{%- if attrib.required %}
+    {{attrib.name.lower()}}: {{attrib.type}}
+{%- endif -%}
+{%- endfor %}
 
 
 class {{ model.name }}Create({{ model.name }}Base):
-    description: Union[str, None] = None
+{%- for attrib in model.attributs %}
+{%- if not attrib.required %}
+    {{attrib.name.lower()}}: Union[{{attrib.type}}, None] = None
+{%- endif -%}
+{%- endfor %}
 
 
-class {{ model.name }}({{ model.name }}Base):
+class Update{{ model.name }}({{ model.name }}Base):
     id: int
-    description: Union[str, None] = None
-    created_at: str
+{%- for attrib in model.attributs %}
+{%- if not attrib.required %}
+    {{attrib.name.lower()}}: Union[{{attrib.type}}, None] = None
+{%- endif -%}
+{% endfor %}
 
     class Config:
         orm_mode = True
