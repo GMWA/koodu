@@ -5,12 +5,12 @@ from sqlalchemy.orm import Session
 
 from {{ full_model.name.lower() }}.dependencies import get_db
 from {{ full_model.name.lower() }}.models import {{ model.name }} as {{ model.name }}Model
-from {{ full_model.name.lower() }}.schemas.categories import {{ model.name }} as {{ model.name }}Schema
-from {{ full_model.name.lower() }}.schemas.categories import {{ model.name }}Create
+from {{ full_model.name.lower() }}.schemas.{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{% else %}{{model.name.lower()}}s{% endif %} import {{ model.name }} as {{ model.name }}Schema
+from {{ full_model.name.lower() }}.schemas.{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{% else %}{{model.name.lower()}}s{% endif %} import {{ model.name }}Create
 
 router = APIRouter(
-    prefix="/categories",
-    tags=["categories"],
+    prefix="/{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}",
+    tags=["{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}"],
     responses={404: {"description": "Not found"}},
 )
 
@@ -26,9 +26,9 @@ def read_categories(db: Session = Depends(get_db)):
 
 
 @router.get(
-    "/'{'{{ model }}_id '}'",
+    "/{ {{- model.name.lower() }}_id}",
     response_model={{ model.name }}Schema,
-    responses='{' 403: '{' "description": "Operation forbidden"'}}',
+    responses={403: {"description": "Operation forbidden"}},
 )
 def get_{{ model.name.lower() }}({{ model.name.lower() }}_id: int, db: Session = Depends(get_db)):
     {{ model.name.lower() }} = db.query({{ model.name }}Model).filter_by(id={{ model.name.lower() }}_id).first()
@@ -41,7 +41,7 @@ def get_{{ model.name.lower() }}({{ model.name.lower() }}_id: int, db: Session =
 @router.post(
     "/",
     response_model={{ model.name }}Schema,
-    responses='{'403: '{'"description": "Operation forbidden"'}}',
+    responses={403: {"description": "Operation forbidden"}},
 )
 def create_{{ model.name.lower() }}({{ model.name.lower() }}: {{ model.name }}Create, db: Session = Depends(get_db)):
     try:
