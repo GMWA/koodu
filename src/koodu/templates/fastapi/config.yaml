@@ -64,3 +64,11 @@ templates:
     type: py
     is-base: False
     is-macro: False
+  - template-path: macros/pytype.jinja
+    file-path:
+    path:
+    name: pytype
+    file-name:
+    type:
+    is-base: False
+    is-macro: True
