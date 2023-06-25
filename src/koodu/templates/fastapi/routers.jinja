@@ -1,0 +1,57 @@
+from typing import List
+
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+from {{ full_model.name.lower() }}.dependencies import get_db
+from {{ full_model.name.lower() }}.models import {{ model.name }} as {{ model.name }}Model
+from {{ full_model.name.lower() }}.schemas.{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{% else %}{{model.name.lower()}}s{% endif %} import {{ model.name }} as {{ model.name }}Schema
+from {{ full_model.name.lower() }}.schemas.{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{% else %}{{model.name.lower()}}s{% endif %} import {{ model.name }}Create
+
+router = APIRouter(
+    prefix="/{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}",
+    tags=["{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}"],
+    responses={404: {"description": "Not found"}},
+)
+
+
+@router.get(
+    "/",
+    response_model=List[{{ model.name }}Schema],
+    responses={403: {"description": "Operation forbidden"}},
+)
+def read_categories(db: Session = Depends(get_db)):
+    categories = db.query({{ model.name }}Model).all()
+    return list(map(lambda cat: cat.to_dict(), categories))
+
+
+@router.get(
+    "/{ {{- model.name.lower() }}_id}",
+    response_model={{ model.name }}Schema,
+    responses={403: {"description": "Operation forbidden"}},
+)
+def get_{{ model.name.lower() }}({{ model.name.lower() }}_id: int, db: Session = Depends(get_db)):
+    {{ model.name.lower() }} = db.query({{ model.name }}Model).filter_by(id={{ model.name.lower() }}_id).first()
+    if not {{ model.name.lower() }}:
+        raise HTTPException(404, "{{ model.name.lower() }} Not Found!")
+    else:
+        return {{ model.name.lower() }}.to_dict()
+
+
+@router.post(
+    "/",
+    response_model={{ model.name }}Schema,
+    responses={403: {"description": "Operation forbidden"}},
+)
+def create_{{ model.name.lower() }}({{ model.name.lower() }}: {{ model.name }}Create, db: Session = Depends(get_db)):
+    try:
+        {{ model.name.lower() }} = db.query({{ model.name }}Model).filter_by(name={{ model.name.lower() }}.name).first()
+        if {{ model.name.lower() }}:
+            raise HTTPException(400, "{{ model .name.lower()}} already exists")
+        db_{{ model.name.lower() }} = {{ model.name }}Model(**{{ model.name.lower() }}.dict())
+        db.add(db_{{ model.name.lower() }})
+        db.commit()
+        db.refresh(db_{{ model .name.lower()}})
+        return db_{{ model.name.lower()}}.to_dict()
+    except Exception as exc:
+        raise HTTPException(500, f"Server Error {exc}!")

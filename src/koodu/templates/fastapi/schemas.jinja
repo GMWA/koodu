@@ -1,0 +1,50 @@
+from typing import Union
+from pydantic import BaseModel
+{%- macro getpytype(typename) -%}
+{%- if typename == "String" or typename == "Text" -%}
+str
+{%- elif typename == "Integer" or typename == "reference" -%}
+int
+{%- endif -%}
+{%- endmacro %}
+
+
+class {{ model.name }}Base(BaseModel):
+{%- for attrib in model.attributs -%}
+{%- if attrib.required %}
+    {{attrib.name.lower()}}: {{ getpytype(attrib.type) }}
+{%- endif -%}
+{%- endfor %}
+
+
+class {{ model.name }}Create({{ model.name }}Base):
+{%- for attrib in model.attributs %}
+{%- if not attrib.required %}
+    {{attrib.name.lower()}}: Union[{{ getpytype(attrib.type) }}, None] = None
+{%- endif -%}
+{%- endfor %}
+    pass
+
+
+class Update{{ model.name }}({{ model.name }}Base):
+    id: int
+{%- for attrib in model.attributs %}
+{%- if not attrib.required %}
+    {{attrib.name.lower()}}: Union[{{ getpytype(attrib.type) }}, None] = None
+{%- endif -%}
+{% endfor %}
+    pass
+
+
+class {{ model.name }}({{ model.name }}Base):
+    id: int
+{%- for attrib in model.attributs %}
+{%- if attrib.required %}
+    {{attrib.name.lower()}}: {{ getpytype(attrib.type) }}
+{%- else %}
+    {{attrib.name.lower()}}: Union[{{ getpytype(attrib.type) }}, None] = None
+{%- endif %}
+{%- endfor %}
+
+    class Config:
+        orm_mode = True

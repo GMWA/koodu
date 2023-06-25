@@ -1,0 +1,74 @@
+name: fastapi
+templates:
+  - template-path: requirements.jinja
+    file-path: /
+    path: /
+    name: requirements
+    file-name: requirements
+    type: txt
+    is-base: False
+    is-macro: False
+  - template-path: manage.jinja
+    file-path: /
+    path: /
+    name: manage
+    file-name: manage
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: database.jinja
+    file-path: /{{full_model.name.lower()}}/
+    path: /
+    name: database
+    file-name: database
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: dependencies.jinja
+    file-path: /{{full_model.name.lower()}}/
+    path: /
+    name: dependencies
+    file-name: dependencies
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: main.jinja
+    file-path: /{{full_model.name.lower()}}/
+    path: /models
+    name: main
+    file-name: main
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: models.jinja
+    file-path: /{{full_model.name.lower()}}/
+    path: /models
+    name: model
+    file-name: models
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: routers.jinja
+    file-path: /{{full_model.name.lower()}}/routers
+    path: /models
+    name: routers
+    file-name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: schemas.jinja
+    file-path: /{{full_model.name.lower()}}/schemas
+    path: /models
+    name: schemas
+    file-name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: macros/pytype.jinja
+    file-path:
+    path:
+    name: pytype
+    file-name:
+    type:
+    is-base: False
+    is-macro: True
