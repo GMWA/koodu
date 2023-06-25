@@ -14,7 +14,7 @@ class {{ mod.name }}(Base):
     __tablename__ = "{{mod.name.lower()}}s"
     {%- endif %}
 
-    id = Column(Integer(), primary=True)
+    id = Column(Integer, primary_key=True)
     {% for attrib in mod.attributs -%}
     {%- if not attrib.type == "reference" -%}
     {{ attrib.name }} = Column({{ attrib.type }}({{attrib.size}}))
