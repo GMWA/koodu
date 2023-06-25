@@ -1,4 +1,7 @@
-{% macro pytayle(typename) -%}
-    <input type="{{ type }}" name="{{ name }}" value="{{
-        value|e }}" size="{{ size }}">
+{%- macro getpytype(typename) -%}
+{%- if typename == "String" or typename == "Text" -%}
+str
+{%- elif typename == "Integer" -%}
+int
+{%- endif -%}
 {%- endmacro %}
