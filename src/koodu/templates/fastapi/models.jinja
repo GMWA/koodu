@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 
 from {{ full_model.name.lower() }}.database import Base
 
-{% for mod in model %}
+{% for mod in full_model.models %}
 class {{ mod.name }}(Base):
     {%- if  mod.name.lower().endswith("y") %}
     __tablename__ = "{{mod.name.lower()[0:-1]}}ies"
