@@ -1,5 +1,5 @@
 CREATE DATABASE {{full_model.name.lower()}};
-{% for mod in model %}
+{% for mod in full_model.models %}
 {%- if mod.name.lower().endswith("y") %}
 CREATE TABLE `{{ mod.name.lower()[0:-1]+"ies" }}` (
 {%- else %}
