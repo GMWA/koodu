@@ -1,0 +1,66 @@
+name: django
+templates:
+  - template-path: requirements.jinja
+    file-path: /
+    path: /
+    name: requirements
+    file-name: requirements
+    type: txt
+    is-base: False
+    is-macro: False
+  - template-path: manage.jinja
+    file-path: /
+    path: /
+    name: manage
+    file-name: manage
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: asgi.jinja
+    file-path: /config/
+    path: /
+    name: asgi
+    file-name: asgi
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: wsgi.jinja
+    file-path: /config/
+    path: /
+    name: wsgi
+    file-name: wsgi
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: settings.jinja
+    file-path: /config/
+    path: /
+    name: settings
+    file-name: settings
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: confinit.jinja
+    file-path: /config/
+    path: /
+    name: init
+    file-name: __init__
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: confurls.jinja
+    file-path: /config/
+    path: /
+    name: confurls
+    file-name: urls
+    type: py
+    is-base: False
+    is-macro: False
+  - template-path: confviews.jinja
+    file-path: /config/
+    path: /
+    name: confviews
+    file-name: views
+    type: py
+    is-base: False
+    is-macro: False
