@@ -1,8 +1,13 @@
 import json
 from pathlib import Path
+
+from koodu.exceptions import (
+    MissingConfigsException,
+    ModelFileTypeException,
+    ModelNotFoundException,
+    NotFolderException,
+)
 from koodu.generator import Generator
-from koodu.exceptions import ModelNotFoundException, ModelFileTypeException
-from koodu.exceptions import NotFolderException, MissingConfigsException
 
 
 def generate(args):
@@ -34,9 +39,7 @@ def generate(args):
         raise ModelFileTypeException(f"{args.model} is not a valid file")
 
     generator = Generator(
-        model=model,
-        template_folder=template_path,
-        output=Path(args.output)
+        model=model, template_folder=template_path, output=Path(args.output)
     )
 
     for file in generator.render():

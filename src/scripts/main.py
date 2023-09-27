@@ -1,7 +1,7 @@
 import argparse
 
-from koodu.scripts.generate import generate
 from koodu.scripts.checks import check_templates, list_command
+from koodu.scripts.generate import generate
 
 
 def main():
@@ -16,21 +16,17 @@ def main():
         "--templates",
         type=str,
         required=True,
-        help="The Path to the folder that contents the template's files."
+        help="The Path to the folder that contents the template's files.",
     )
     gen.add_argument(
         "-m",
         "--model",
         type=str,
         required=True,
-        help="The Path to the model file(it should be a json file.)"
+        help="The Path to the model file(it should be a json file.)",
     )
     gen.add_argument(
-        "-o",
-        "--output",
-        type=str,
-        required=True,
-        help="The Path to the output files."
+        "-o", "--output", type=str, required=True, help="The Path to the output files."
     )
 
     check.add_argument(
@@ -38,14 +34,14 @@ def main():
         "-f",
         type=str,
         required=True,
-        help="The Path to the folder that contents the template's files."
+        help="The Path to the folder that contents the template's files.",
     )
 
     _list.add_argument(
         "option",
         type=str,
         choices=["models", "m", "templates", "t"],
-        help="The option: what you want to list(model(m) or template(t))"
+        help="The option: what you want to list(model(m) or template(t))",
     )
 
     args = parser.parse_args()
