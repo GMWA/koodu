@@ -130,3 +130,5 @@ dmypy.json
 
 # output folder for tests
 output/
+
+.ruff_cache/
