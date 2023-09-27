@@ -1,7 +1,7 @@
-import yaml
-
 from pathlib import Path
 from typing import Dict, List
+
+import yaml
 
 
 def get_all_files(folder: Path) -> Dict[str, Path]:

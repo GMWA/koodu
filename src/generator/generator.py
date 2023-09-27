@@ -2,16 +2,25 @@
 
 import logging
 from pathlib import Path
-from typing import List, Dict
-from jinja2 import DictLoader as JDictLoader, Environment as JEnvironment, Template as JTemplate
+from typing import Dict, List
+
+from jinja2 import (
+    DictLoader as JDictLoader,
+)
+from jinja2 import (
+    Environment as JEnvironment,
+)
+from jinja2 import (
+    Template as JTemplate,
+)
 from jinja2.exceptions import TemplateNotFound
-from koodu.generator.file import File
 from koodu.exceptions import MissingModelException
+from koodu.generator.file import File
 
 from .utils import load_template_config
 
 
-class Objectview():
+class Objectview:
     """Convenience object to generate an object out a of a dict"""
 
     def __init__(self, d):
@@ -25,14 +34,16 @@ class Objectview():
             yield item
 
 
-class Generator():
+class Generator:
     """The Generator is the Core of the engine, it takes as parameters a model, the
-        path to the template folder, and the path of the folder where the generated
-        code will be saved and it contains different methods that allow us to generate
-        our code from the model and templates.
+    path to the template folder, and the path of the folder where the generated
+    code will be saved and it contains different methods that allow us to generate
+    our code from the model and templates.
     """
 
-    def __init__(self, template_folder: Path, model: str = None, output: Path = Path("./")) -> None:
+    def __init__(
+        self, template_folder: Path, model: str = None, output: Path = Path("./")
+    ) -> None:
         self.valid = False
         self.last_error = ""
         self.template_folder = template_folder
@@ -46,7 +57,9 @@ class Generator():
         if self.model is None:
             raise MissingModelException("NO_MODEL", "No model specified")
         elif self.configs["templates"] is None:
-            raise Exception("NONE_TEMPLATES", "Template Group has no templates attribute")
+            raise Exception(
+                "NONE_TEMPLATES", "Template Group has no templates attribute"
+            )
         elif len(self.configs["templates"]) < 1:
             raise Exception("NO_TEMPLATES", "Template Group has no templates attached.")
         else:
@@ -63,7 +76,9 @@ class Generator():
         """Load the templates Informations."""
         result = {}
         for template in self.configs["templates"]:
-            with open(self.template_folder / Path(template["template-path"]), "r") as fp:
+            with open(
+                self.template_folder / Path(template["template-path"]), "r"
+            ) as fp:
                 template_code = fp.read()
 
             result[template["name"]] = template_code
@@ -76,7 +91,9 @@ class Generator():
 
         for template in self.configs["templates"]:
             if template["name"] == template_name:
-                with open(self.template_folder / Path(template["template-path"]), "r") as fp:
+                with open(
+                    self.template_folder / Path(template["template-path"]), "r"
+                ) as fp:
                     template_code = fp.read()
 
                 found_template = {
@@ -85,7 +102,7 @@ class Generator():
                     "path": template["path"],
                     "file-name": template["file-name"],
                     "type": template["type"],
-                    "file-path": template["file-path"]
+                    "file-path": template["file-path"],
                 }
                 break
         return found_template
@@ -105,10 +122,7 @@ class Generator():
             (str): the file name
         """
         if len(template["file-name"]) > 0:
-            args = {
-                "model": model,
-                "full_model": self.model
-            }
+            args = {"model": model, "full_model": self.model}
             tm = JTemplate(template["file-name"])
             file_name = tm.render(args)
         else:
@@ -130,10 +144,7 @@ class Generator():
             (str): the file path
         """
         filepath = ""
-        args = {
-            "model": Objectview(model),
-            "full_model": self.model
-        }
+        args = {"model": Objectview(model), "full_model": self.model}
         if len(template["file-path"]) > 0:
             tm = JTemplate(template["file-path"])
             filepath = tm.render(args)
@@ -142,12 +153,12 @@ class Generator():
     def render_model(self, template, model_element, from_list):
         model_element_first_key = list(model_element.keys())[0]
         ret_value = "Nothing as been generated."
-        if(model_element_first_key):
+        if model_element_first_key:
             try:
                 jinja_template = self.jinja_env.get_template(template["name"])
                 args = {
                     "model": model_element if from_list else Objectview(model_element),
-                    "full_model": self.model
+                    "full_model": self.model,
                 }
                 ret_value = jinja_template.render(args)
             except TemplateNotFound:
@@ -161,7 +172,7 @@ class Generator():
         return {
             "name": self.render_file_name(template, model_element),
             "filepath": self.render_file_path(template, model_element),
-            "content": ret_value
+            "content": ret_value,
         }
 
     def _render_template(self, name: str) -> List[Dict[str, str]]:
@@ -173,13 +184,15 @@ class Generator():
         for step in path_steps:
             try:
                 model_part = self.model[step]
-            except:
-                output.append({
-                    "name": name,
-                    "filepath": template["file-path"],
-                    "content": f"ERR:Given Path {template['path']} ist not Valid:\
-                               Step {step} not found."
-                })
+            except Exception:
+                output.append(
+                    {
+                        "name": name,
+                        "filepath": template["file-path"],
+                        "content": f"ERR:Given Path {template['path']} ist not Valid:\
+                               Step {step} not found.",
+                    }
+                )
                 return output
 
         if isinstance(model_part, list):
@@ -188,11 +201,15 @@ class Generator():
         elif isinstance(model_part, dict):
             output.append(self.render_model(template, model_part, from_list=False))
         else:
-            output.append({
-                "name": name,
-                "filepath": template["file-path"],
-                "content": "ERR: " + name + " Model Path contains not an List or Dictionary."
-            })
+            output.append(
+                {
+                    "name": name,
+                    "filepath": template["file-path"],
+                    "content": "ERR: "
+                    + name
+                    + " Model Path contains not an List or Dictionary.",
+                }
+            )
         return output
 
     def render_templates(self):
@@ -221,11 +238,7 @@ class Generator():
                     root = self.output / Path(filepath[1:])
                 else:
                     root = self.output / Path(filepath)
-            file = File(
-                name=name,
-                root=root,
-                content=content
-            )
+            file = File(name=name, root=root, content=content)
             result.append(file)
 
         return result
@@ -233,7 +246,7 @@ class Generator():
     def render_template(self, template_name):
         """The render method renders one template"""
         template = self.get_template_by_name(template_name)
-        if (template):
+        if template:
             return self._render_template(template["name"])
         return {"name": f"ERR: {template_name}", "content": "template not found."}
 

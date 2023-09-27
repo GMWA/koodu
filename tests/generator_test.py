@@ -1,8 +1,8 @@
-import unittest
 import json
-
+import unittest
 from pathlib import Path
-from koodu import Generator, File
+
+from koodu import Generator
 
 MODEL_PATH = "../models/test.json"
 TEMPLATE_PATH = "../template/tests"
@@ -25,9 +25,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_genrator_base(self):
         generator = Generator(
-            model=self.model,
-            template_folder=self.template_path,
-            output=self.output
+            model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator.render()
         self.assertEqual(len(output), 1)
@@ -36,9 +34,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_genrator_path(self):
         generator_inst = Generator(
-            model=self.model,
-            template_folder=self.template_path,
-            output=self.output
+            model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator_inst.render()
         self.assertEqual(len(output), 1)
@@ -47,9 +43,7 @@ class TestGenerator(unittest.TestCase):
 
     def test_genrator_path_list(self):
         generator_inst = Generator(
-            model=self.model,
-            template_folder=self.template_path,
-            output=self.output
+            model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator_inst.render()
         self.assertEqual(len(output), 2)
@@ -62,21 +56,19 @@ class TestGenerator(unittest.TestCase):
         error_msg = ""
         try:
             generator = Generator(
-                model=self.model,
-                template_folder=self.template_path,
-                output=self.output
+                model=self.model, template_folder=self.template_path, output=self.output
             )
             print(generator)
         except Exception as e:
             error_msg = e.args
 
-        self.assertEqual(error_msg, ("NO_TEMPLATES", "Template Group has no templates attached."))
+        self.assertEqual(
+            error_msg, ("NO_TEMPLATES", "Template Group has no templates attached.")
+        )
 
     def test_genrator_macros(self):
         generator = Generator(
-            model=self.model,
-            template_folder=self.template_path,
-            output=self.output
+            model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator.render()
         self.assertEqual(len(output), 0)
