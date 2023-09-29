@@ -5,7 +5,7 @@ build-docs:  # Build the documentation
 	mkdocs build
 
 deploy-docs:  # Deploy the documentation
-	mkdocs build
+	mkdocs gh-deploy
 
 release:  # Build a new version and release it
 	poetry build
