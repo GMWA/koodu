@@ -1,6 +1,9 @@
 install:  # Install requirements
 	poetry install
 
+update-lock:  # Update poetry.lock file
+	poetry lock
+
 build-docs:  # Build the documentation
 	mkdocs build
 
