@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://kuudo.net"><img src="https://github.com/GMWA/koodu/blob/main/docs/assets/koodu.png" alt="Koodu"></a>
+  <a href="https://kuudo.net"><img src="https://github.com/GMWA/koodu/blob/main/docs/assets/images/koodu.png" alt="Koodu"></a>
 </p>
 <p align="center">
     <em>Koodu, simple code generator engine written in python</em>
