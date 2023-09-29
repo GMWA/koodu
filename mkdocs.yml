@@ -3,11 +3,10 @@ site_url: https://gmwa.github.io/koodu/
 theme:
   name: material
   palette:
-    scheme: slate
     primary: custom
 
 extra_css:
-  - stylesheets/extra.css
+  - assets/stylesheets/extra.css
 
 repo_name: GMWA/koodu
 repo_url: https://github.com/GMWA/koodu
