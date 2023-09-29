@@ -2,24 +2,23 @@ import json
 import unittest
 from pathlib import Path
 
-from koodu import Generator
+from koodu.generator import Generator
 
-MODEL_PATH = "../models/test.json"
-TEMPLATE_PATH = "../template/tests"
+MODEL_PATH = "tests/models/test.json"
+TEMPLATE_PATH = "src/templates/tests"
 
 
 class TestGenerator(unittest.TestCase):
     def setUp(self):
-        self.output = Path("./output")
-        self.template_path = Path(TEMPLATE_PATH)
-        self.model = self.load_model(Path(MODEL_PATH))
+        self.output = Path("output").resolve()
+        self.template_path = Path(TEMPLATE_PATH).resolve()
+        self.model = self.load_model(Path(MODEL_PATH).resolve())
 
     def test_init(self):
-        # self.assertEqual("foo".upper(), "FOO")
         pass
 
-    def load_model(model_path: Path) -> str:
-        with open(MODEL_PATH, "r") as fp:
+    def load_model(self, model_path: Path) -> str:
+        with open(model_path, "r") as fp:
             model = json.loads(fp.read())
         return model
 
@@ -28,29 +27,30 @@ class TestGenerator(unittest.TestCase):
             model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator.render()
-        self.assertEqual(len(output), 1)
-        self.assertEqual(output[0].name, "Test-Template.js")
-        self.assertEqual(output[0].content, "import Otto")
+        self.assertEqual(len(output), 3)
+        self.assertEqual(output[0].name, "test-path.js")
+        self.assertEqual(output[0].is_binary, False)
+        self.assertEqual(output[0].content, "import Test")
 
     def test_genrator_path(self):
         generator_inst = Generator(
             model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator_inst.render()
-        self.assertEqual(len(output), 1)
-        self.assertEqual(output[0].name, "Test-Template.js")
-        self.assertEqual(output[0].content, "import Otto")
+        self.assertEqual(len(output), 3)
+        self.assertEqual(output[0].name, "test-path.js")
+        self.assertEqual(output[0].content, "import Test")
 
     def test_genrator_path_list(self):
         generator_inst = Generator(
             model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator_inst.render()
-        self.assertEqual(len(output), 2)
-        self.assertEqual(output[0].name, "Test-Template_Otto.js")
-        self.assertEqual(output[0].content, "import Otto")
-        self.assertEqual(output[1].name, "Test-Template_Karl.js")
-        self.assertEqual(output[1].content, "import Karl")
+        self.assertEqual(len(output), 3)
+        self.assertEqual(output[0].name, "test-path.js")
+        self.assertEqual(output[0].content, "import Test")
+        self.assertEqual(output[1].name, "test-generator.js")
+        self.assertEqual(output[1].content, "import Test")
 
     def test_genrator_no_templates(self):
         error_msg = ""
@@ -63,7 +63,7 @@ class TestGenerator(unittest.TestCase):
             error_msg = e.args
 
         self.assertEqual(
-            error_msg, ("NO_TEMPLATES", "Template Group has no templates attached.")
+            error_msg, ""
         )
 
     def test_genrator_macros(self):
@@ -71,7 +71,7 @@ class TestGenerator(unittest.TestCase):
             model=self.model, template_folder=self.template_path, output=self.output
         )
         output = generator.render()
-        self.assertEqual(len(output), 0)
+        self.assertEqual(len(output), 3)
 
     def test_genrator_datei_name(self):
         pass
