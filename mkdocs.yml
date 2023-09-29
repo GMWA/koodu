@@ -3,8 +3,11 @@ site_url: https://gmwa.github.io/koodu/
 theme:
   name: material
   palette:
-    scheme: slate
-    primary: blue grey
+    primary: custom
+
+extra_css:
+  - assets/stylesheets/extra.css
+
 repo_name: GMWA/koodu
 repo_url: https://github.com/GMWA/koodu
 nav:
@@ -12,6 +15,7 @@ nav:
   - Install: install.md
   - Koodu Generator: generator.md
   - Testing: testing.md
+  - Change Log: CHANGELOG.md
 
 markdown_extensions:
   - pymdownx.highlight:

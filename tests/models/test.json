@@ -1,0 +1,7 @@
+{
+    "name": "Test",
+    "models": [
+        {"name" : "First"},
+        {"name": "Second"}
+    ]
+}
