@@ -7,6 +7,14 @@ license = "Apache 2.0"
 readme = "README.md"
 packages = [{include = "src"}]
 homepage = "https://gmwa.github.io/koodu/"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development"
+]
 
 [tool.poetry.scripts]
 koodu = "src.scripts.main:main"
