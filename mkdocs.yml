@@ -15,6 +15,7 @@ nav:
   - Install: install.md
   - Koodu Generator: generator.md
   - Testing: testing.md
+  - Available Templates: templates.md
   - Change Log: CHANGELOG.md
 
 markdown_extensions:
