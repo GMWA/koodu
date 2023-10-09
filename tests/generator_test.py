@@ -62,9 +62,7 @@ class TestGenerator(unittest.TestCase):
         except Exception as e:
             error_msg = e.args
 
-        self.assertEqual(
-            error_msg, ""
-        )
+        self.assertEqual(error_msg, "")
 
     def test_genrator_macros(self):
         generator = Generator(
@@ -73,7 +71,7 @@ class TestGenerator(unittest.TestCase):
         output = generator.render()
         self.assertEqual(len(output), 3)
 
-    def test_genrator_datei_name(self):
+    def test_genrator_file_name(self):
         pass
 
     def test_genrator_base_template(self):

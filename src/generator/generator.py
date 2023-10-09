@@ -80,9 +80,7 @@ class Generator:
         if self.model is None:
             raise MissingModelException("NO_MODEL", "Missing Model.")
         elif self.configs.get("templates", None) is None:
-            raise Exception(
-                "NO_TEMPLATES", "Missing Template"
-            )
+            raise Exception("NO_TEMPLATES", "Missing Template")
         elif len(self.configs.get("templates")) < 1:
             raise Exception("NO_ATTACHED_TEMPLATES", "Missing Attached Template.")
         else:
@@ -156,7 +154,7 @@ class Generator:
 
         return file_name
 
-    def render_file_path(self, template, model) -> str:
+    def render_file_path(self, template: Dict[str, str], model) -> str:
         """Render file path
 
         Args:
@@ -173,7 +171,7 @@ class Generator:
             filepath = tm.render(args)
         return filepath
 
-    def render_model(self, template, model_element, from_list):
+    def render_model(self, template, model_element: Dict[str, str], from_list):
         model_element_first_key = list(model_element.keys())[0]
         ret_value = "Nothing as been generated."
         if model_element_first_key:
@@ -235,7 +233,7 @@ class Generator:
             )
         return output
 
-    def render_templates(self):
+    def render_templates(self) -> List[Dict[str, str]]:
         rendered_outputs = []
 
         for template in self.configs.get("templates"):
