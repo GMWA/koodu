@@ -16,8 +16,28 @@ from jinja2 import (
 from jinja2.exceptions import TemplateNotFound
 from koodu.exceptions import MissingModelException
 from koodu.generator.file import File
+from koodu.generator.utils import load_template_config
+from pydantic import BaseModel
 
-from .utils import load_template_config
+
+class AttributSchema(BaseModel):
+    name: str
+    type: str
+    size: int
+    primary_key: bool = False
+    index_key: bool = False
+    unique_key: bool = False
+    required: bool = False
+
+
+class ModelSchema(BaseModel):
+    name: str
+    attributs: List[AttributSchema]
+
+
+class GeneratorModelSchema(BaseModel):
+    name: str
+    models: List[AttributSchema]
 
 
 class Objectview:
@@ -42,14 +62,17 @@ class Generator:
     """
 
     def __init__(
-        self, template_folder: Path, model: str = None, output: Path = Path("./")
+        self,
+        template_folder: Path,
+        model: GeneratorModelSchema = None,
+        output: Path = Path("./"),
     ) -> None:
         self.valid = False
         self.last_error = ""
         self.template_folder = template_folder
         self.model = model
         self.output = output
-        self.configs = load_template_config(self.template_folder)
+        self.configs: List[Dict[str, str]] = load_template_config(self.template_folder)
 
         if self.configs is None:
             raise Exception("The config file is not good formated.")
