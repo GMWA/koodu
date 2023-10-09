@@ -1,5 +1,0 @@
-templates:
-  -
-    path: "models.jinja"
-    name: "model"
-    type: "js"

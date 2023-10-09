@@ -5,7 +5,7 @@ from pathlib import Path
 from koodu.generator import Generator
 
 MODEL_PATH = "tests/models/test.json"
-TEMPLATE_PATH = "src/templates/tests"
+TEMPLATE_PATH = "koodu/templates/tests"
 
 
 class TestGenerator(unittest.TestCase):
