@@ -1,0 +1,29 @@
+from datetime import datetime
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
+from sqlalchemy.orm import relationship
+
+from {{ full_model.name.lower() }}.database import Base
+
+{% for mod in full_model.models %}
+class {{ mod.name }}(Base):
+    {%- if  mod.name.lower().endswith("y") %}
+    __tablename__ = "{{mod.name.lower()[0:-1]}}ies"
+    {%- elif mod.name.lower().endswith("s") %}
+    __tablename__ = "{{mod.name.lower()}}"
+    {%- else%}
+    __tablename__ = "{{mod.name.lower()}}s"
+    {%- endif %}
+
+    id = Column(Integer, primary_key=True)
+    {% for attrib in mod.attributs -%}
+    {%- if not attrib.type == "reference" -%}
+    {{ attrib.name }} = Column({{ attrib.type }}({{attrib.size}}))
+    {%- endif %}
+    {%- if attrib.type == "reference" -%}
+    {{ attrib.name }} = Column(Integer, ForeignKey("{%- if attrib.model.lower().endswith("y") -%}{{attrib.model.lower()[0:-1]+"ies"}}{%- else -%}{{attrib.model.lower()+"s"}}{%- endif -%}.id"))
+    {%- endif %}
+    {% endfor -%}
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow)
+
+{% endfor %}

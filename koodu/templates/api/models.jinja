@@ -1,0 +1,21 @@
+from {{ full_model.name.lower() }} import db
+
+{% for mod in full_model.models %}
+class {{ mod.name }}(db.Model):
+    {%- if  mod.name.lower().endswith("y") %}
+    __tablename__ = "{{mod.name.lower()[0:-1]}}ies"
+    {%- endif %}
+    {%- if  not mod.name.lower().endswith("y") %}
+    __tablename__ = "{{mod.name.lower()}}s"
+    {%- endif %}
+
+    id = db.Column(db.Integer(), primary=True)
+    {% for attrib in mod.attributs -%}
+    {%- if not attrib.type == "reference" -%}
+    {{ attrib.name }} = db.Column(db.{{ attrib.type }}({{attrib.size}}))
+    {%- endif %}
+    {%- if attrib.type == "reference" -%}
+    {{ attrib.name }} = db.Column(db.Integer, db.ForeignKey("{%- if attrib.model.lower().endswith("y") -%}{{attrib.model.lower()[0:-1]+"ies"}}{%- else -%}{{attrib.model.lower()+"s"}}{%- endif -%}.id"))
+    {%- endif %}
+    {% endfor %}
+{% endfor %}

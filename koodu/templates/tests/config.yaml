@@ -1,0 +1,18 @@
+name: tests
+templates:
+  - template-path: test-path.jinja
+    file-path: /
+    path: /
+    name: test-path
+    file-name: test-path
+    type: js
+    is-base: False
+    is-macro: False
+  - template-path: test-gen.jinja
+    file-path: /
+    path: /models
+    name: test-generator
+    file-name: test-generator
+    type: js
+    is-base: False
+    is-macro: False

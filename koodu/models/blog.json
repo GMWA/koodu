@@ -1,0 +1,57 @@
+{
+    "name": "Blog",
+    "models": [
+        {
+            "name": "User",
+            "attributs": [
+                {
+                    "name": "name",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "username",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "password",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                }
+            ]
+        },
+        {
+            "name": "Post",
+            "attributs": [
+                {
+                    "name": "title",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "text",
+                    "type": "Text",
+                    "required": true,
+                    "size": 1000
+                },
+                {
+                    "name": "user_id",
+                    "type": "reference",
+                    "required": true,
+                    "model": "User"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+from dotenv import load_dotenv
+load_dotenv()
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+{%- for mod in full_model.models %}
+{%- if  mod.name.lower().endswith("y") %}
+from {{full_model.name.lower()}}.routers.{{mod.name.lower()[0:-1]}}ies import router as {{mod.name.lower()[0:-1]}}ies_router
+{%- elif mod.name.lower().endswith("s") %}
+from {{full_model.name.lower()}}.routers.{{mod.name.lower()}} import router as {{mod.name.lower()}}_router
+{%- else %}
+from {{full_model.name.lower()}}.routers.{{mod.name.lower()}}s import router as {{mod.name.lower()}}s_router
+{%- endif -%}
+{% endfor %}
+
+app = FastAPI()
+
+{%- for mod in full_model.models %}
+{%- if  mod.name.lower().endswith("y") %}
+app.include_router({{mod.name.lower()[0:-1]}}ies_router)
+{%- elif mod.name.lower().endswith("s") %}
+app.include_router({{mod.name.lower()}}_router)
+{%- else %}
+app.include_router({{mod.name.lower()}}s_router)
+{%- endif %}
+{%- endfor %}
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # origins we allow
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)

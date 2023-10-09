@@ -1,0 +1,80 @@
+{
+    "name": "Todo",
+    "models": [
+        {
+            "name": "User",
+            "attributs": [
+                {
+                    "name": "name",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "email",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "username",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "password",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                }
+            ]
+        },
+        {
+            "name": "Category",
+            "attributs": [
+                {
+                    "name": "name",
+                    "type": "String",
+                    "required": true,
+                    "size": 128
+                },
+                {
+                    "name": "description",
+                    "type": "Text",
+                    "required": false,
+                    "size": 1000
+                }
+            ]
+        },
+        {
+            "name": "Todo",
+            "attributs": [
+                {
+                    "name": "title",
+                    "type": "String",
+                    "required": true,
+                    "size": 255
+                },
+                {
+                    "name": "description",
+                    "type": "Text",
+                    "required": false,
+                    "size": 1000
+                },
+                {
+                    "name": "category_id",
+                    "type": "reference",
+                    "required": true,
+                    "model": "Category"
+                },
+                {
+                    "name": "user_id",
+                    "type": "reference",
+                    "required": true,
+                    "model": "User"
+                }
+            ]
+        }
+    ]
+}
