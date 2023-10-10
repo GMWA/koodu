@@ -4,9 +4,27 @@ from koodu.scripts.checks import check_templates, list_command
 from koodu.scripts.generate import generate
 
 
+def print_koodu():
+    print("╔═══════════════════════════════════════════════════╗")
+    print("║                  KOODU CLI TOOLS                  ║")
+    print("║   Simple and lightweight code generator engine.   ║")
+    print("╠═══════════════════════════════════════════════════╣")
+    print("║ Options:                                          ║")
+    print("║                                                   ║")
+    print("║ 1. generate                                       ║")
+    print("║ 2. list                                           ║")
+    print("║ 3. check                                          ║")
+    print("╚═══════════════════════════════════════════════════╝")
+    print()
+
+
 def main():
-    parser = argparse.ArgumentParser()
-    subparser = parser.add_subparsers(dest="command")
+    print_koodu()
+    parser = argparse.ArgumentParser(
+        description="koodu CLI Tool - Simple and lightweight code generator engine.",
+        usage="koodu [options] arguments",
+    )
+    subparser = parser.add_subparsers(dest="command", help="The command to execute")
     gen = subparser.add_parser("generate")
     check = subparser.add_parser("check")
     _list = subparser.add_parser("list")
