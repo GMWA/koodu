@@ -18,7 +18,9 @@ def generate(args):
     if "/" in args.templates or "\\" in args.templates:
         template_path = Path(args.templates)
     else:
-        template_path = (Path("").parent.parent / Path(args.templates)).resolve()
+        template_path = (
+            Path(__file__).parent.parent / Path("templates") / Path(args.templates)
+        ).resolve()
 
     if not Path(template_path / Path("config.yaml")).is_file():
         raise MissingConfigsException("NOT TEMPLATE CONFIG FILE")

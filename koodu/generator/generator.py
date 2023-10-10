@@ -14,10 +14,11 @@ from jinja2 import (
     Template as JTemplate,
 )
 from jinja2.exceptions import TemplateNotFound
+from pydantic import BaseModel
+
 from koodu.exceptions import MissingModelException
 from koodu.generator.file import File
 from koodu.generator.utils import load_template_config
-from pydantic import BaseModel
 
 
 class AttributSchema(BaseModel):
