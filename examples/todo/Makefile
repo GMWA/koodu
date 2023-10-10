@@ -1,0 +1,54 @@
+.DEFAULT_GOAL=help
+
+CONFIG_FILE=./.env
+VENVPATH=venv
+PYTHON=$(VENVPATH)/bin/python3
+UVICORN=$(VENVPATH)/bin/uvicorn
+
+##venv: setup the virtualenv (this step is integrated with the instal-xxx target
+venv: $(VENVPATH)/bin/activate
+$(VENVPATH)/bin/activate: requirements.txt
+	test -d $(VENVPATH) || python3 -m venv $(VENVPATH); \
+	. $(VENVPATH)/bin/activate; \
+	pip install -U pip; \
+	pip install -r requirements.txt; \
+	touch $(VENVPATH)/bin/activate;
+
+$(CONFIG_FILE):
+	echo "> Adding config file..."
+	cp .env.example $(CONFIG_FILE)
+
+##install-deps: setup your prod environment
+install-deps: venv $(CONFIG_FILE)
+
+##install-dev-deps: setup your dev environment
+install-dev-deps: install-deps $(CONFIG_FILE)
+	$(PYTHON) -m pip install black==22.10.0 isort==5.10.1 flake8==5.0.4
+
+##run: run the api locally
+run: install-deps
+	$(UVICORN) todo.main:app --reload
+
+##docker-build: using docker to build the back image
+docker-build:
+	docker build --tag todo:latest -f Dockerfile .
+
+##docker-run: using docker to run the back image
+docker-run: docker-build
+	docker run -ti -p 8000:8000 -v data:/app/data --rm todo:latest
+
+##lint: the source code using black, isort, flake8
+lint: install-dev-deps venv
+	$(PYTHON) -m black todo
+	$(PYTHON) -m isort todo
+	$(PYTHON) -m flake8 todo --show-source --statistics --ignore=F821,E402
+
+##clean: clean the virtualenv
+clean:
+	rm -rf $(VENVPATH)
+
+##help: show help
+help : Makefile
+	@sed -n 's/^##//p' $<
+
+.PHONY : help venv install-dev-deps install-deps lint docker-run docker-build run clean
