@@ -151,7 +151,8 @@ class Generator:
             model_element_first_key = list(model.keys())[0]
             file_name = template.get("name") + "_" + model[model_element_first_key]
 
-        file_name = file_name + "." + template.get("type")
+        if template.get("type"):
+            file_name = file_name + "." + template.get("type")
 
         return file_name
 
