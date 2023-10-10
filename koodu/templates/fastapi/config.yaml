@@ -80,6 +80,14 @@ templates:
     type:
     is-base: False
     is-macro: False
+  - template-path: docker.jinja
+    file-path: /
+    path: /
+    name: docker
+    file-name: Dockerfile
+    type:
+    is-base: False
+    is-macro: False
   - template-path: macros/pytype.jinja
     file-path:
     path:
