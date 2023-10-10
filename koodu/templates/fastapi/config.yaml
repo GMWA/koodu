@@ -72,6 +72,14 @@ templates:
     type: md
     is-base: False
     is-macro: False
+  - template-path: make.jinja
+    file-path: /
+    path: /
+    name: makefile
+    file-name: Makefile
+    type:
+    is-base: False
+    is-macro: False
   - template-path: macros/pytype.jinja
     file-path:
     path:
