@@ -5,7 +5,7 @@ description = "Simple and lightweight code generator engine written in python"
 authors = ["Alex Mboutchouang <mboutchouangalex@gmail.com>"]
 license = "Apache 2.0"
 readme = "README.md"
-packages = [{include = "src"}]
+packages = [{include = "koodu"}]
 homepage = "https://gmwa.github.io/koodu/"
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -17,8 +17,8 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-koodu = "src.scripts.main:main"
-koodu-gen = "src.scripts.main:main"
+koodu = "koodu.scripts.main:main"
+koodu-gen = "koodu.scripts.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
