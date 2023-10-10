@@ -1,6 +1,5 @@
 # {{ full_model.name }}
 
-
 ## Project setup
 
 ### REQUIREMENTS
@@ -20,12 +19,6 @@ make install-deps
 
 ##### DEV
 
-```
-make run
-
-# To run tests
-make test
-
 # formating
 make lint
 ```
@@ -33,6 +26,11 @@ make lint
 ##### PROD
 
 Or Using Docker
+
+```
+# This will build your docker image
+make docker-build
+```
 
 ```
 # This will install and run your project on port 8000
