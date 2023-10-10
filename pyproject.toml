@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "koodu"
-version = "0.0.1"
+version = "0.0.2"
 description = "Simple and lightweight code generator engine written in python"
 authors = ["Alex Mboutchouang <mboutchouangalex@gmail.com>"]
 license = "Apache 2.0"
