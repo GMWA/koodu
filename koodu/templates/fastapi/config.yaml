@@ -64,6 +64,14 @@ templates:
     type: py
     is-base: False
     is-macro: False
+  - template-path: readme.jinja
+    file-path: /
+    path: /
+    name: readme
+    file-name: README
+    type: md
+    is-base: False
+    is-macro: False
   - template-path: macros/pytype.jinja
     file-path:
     path:
