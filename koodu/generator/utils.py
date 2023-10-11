@@ -1,7 +1,8 @@
 from pathlib import Path
 from typing import Dict, List, Union
-from pydantic import BaseModel
+
 import yaml
+from pydantic import BaseModel
 
 
 class TemplateConfigSchema(BaseModel):

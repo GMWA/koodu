@@ -1,15 +1,12 @@
 import argparse
-from todo.database import engine, SessionLocal
+
+from todo.database import SessionLocal, engine
 from todo.models import Base
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "command",
-        type=str,
-        choices=["init", "reset"]
-    )
+    parser.add_argument("command", type=str, choices=["init", "reset"])
 
     command = parser.parse_args().command
     session = SessionLocal()

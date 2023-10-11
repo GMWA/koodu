@@ -18,7 +18,10 @@ from pydantic import BaseModel
 
 from koodu.exceptions import MissingModelException
 from koodu.generator.file import File
-from koodu.generator.utils import ConfigSchema, TemplateConfigSchema, load_template_config
+from koodu.generator.utils import (
+    ConfigSchema,
+    load_template_config,
+)
 
 
 class AttributSchema(BaseModel):
@@ -107,9 +110,7 @@ class Generator:
         """Load the templates Informations."""
         result = {}
         for template in self.configs.templates:
-            with open(
-                self.template_folder / Path(template.template_path), "r"
-            ) as fp:
+            with open(self.template_folder / Path(template.template_path), "r") as fp:
                 template_code = fp.read()
 
             result[template.name] = template_code
@@ -127,14 +128,16 @@ class Generator:
                 ) as fp:
                     template_code = fp.read()
 
-                found_template = TemplateSchema(**{
-                    "template_code": template_code,
-                    "name": template.name,
-                    "path": template.path,
-                    "file_name": template.file_name,
-                    "type": template.type,
-                    "file_path": template.file_path,
-                })
+                found_template = TemplateSchema(
+                    **{
+                        "template_code": template_code,
+                        "name": template.name,
+                        "path": template.path,
+                        "file_name": template.file_name,
+                        "type": template.type,
+                        "file_path": template.file_path,
+                    }
+                )
                 break
         return found_template
 
@@ -182,7 +185,9 @@ class Generator:
             filepath = tm.render(args)
         return filepath
 
-    def render_model(self, template: TemplateSchema, model_element: Dict[str, str], from_list):
+    def render_model(
+        self, template: TemplateSchema, model_element: Dict[str, str], from_list
+    ):
         model_element_first_key = list(model_element.keys())[0]
         ret_value = "Nothing as been generated."
         if model_element_first_key:
@@ -194,11 +199,11 @@ class Generator:
                 }
                 ret_value = jinja_template.render(args)
             except TemplateNotFound:
-                self.last_error = f'Could not find template in {template.name}'
+                self.last_error = f"Could not find template in {template.name}"
                 ret_value = self.last_error
                 logging.error(self.last_error)
             except Exception as ex:
-                ret_value = f'Exception in {template.name}: {str(ex)}'
+                ret_value = f"Exception in {template.name}: {str(ex)}"
         else:
             ret_value = "Part of the Model not found or empty"
         return {
@@ -221,8 +226,8 @@ class Generator:
                     {
                         "name": name,
                         "filepath": template.file_path,
-                        "content": f'ERR:Given Path {template.path} ist not Valid:\
-                               Step {step} not found.',
+                        "content": f"ERR:Given Path {template.path} ist not Valid:\
+                               Step {step} not found.",
                     }
                 )
                 return output

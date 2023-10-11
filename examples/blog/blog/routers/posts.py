@@ -1,12 +1,11 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
-
 from blog.dependencies import get_db
 from blog.models import Post as PostModel
 from blog.schemas.posts import Post as PostSchema
 from blog.schemas.posts import PostCreate
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
 
 router = APIRouter(
     prefix="/posts",

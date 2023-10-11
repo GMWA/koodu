@@ -49,3 +49,6 @@ select = [
     # isort
     "I001"
 ]
+exclude = [
+    "examples"
+]

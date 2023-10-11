@@ -2,7 +2,6 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
 from todo.dependencies import get_db
 from todo.models import Todo as TodoModel
 from todo.schemas.todos import Todo as TodoSchema

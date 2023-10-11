@@ -1,8 +1,7 @@
 from datetime import datetime
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
-from sqlalchemy.orm import relationship
 
 from blog.database import Base
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
 
 
 class User(Base):
@@ -26,4 +25,3 @@ class Post(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow)
-
