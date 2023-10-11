@@ -1,74 +1,98 @@
 name: fastapi
 templates:
-  - template-path: requirements.jinja
-    file-path: /
+  - template_path: requirements.jinja
+    file_path: /
     path: /
     name: requirements
-    file-name: requirements
+    file_name: requirements
     type: txt
-    is-base: False
-    is-macro: False
-  - template-path: manage.jinja
-    file-path: /
+    is_base: False
+    is_macro: False
+  - template_path: manage.jinja
+    file_path: /
     path: /
     name: manage
-    file-name: manage
+    file_name: manage
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: database.jinja
-    file-path: /{{full_model.name.lower()}}/
+    is_base: False
+    is_macro: False
+  - template_path: database.jinja
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: database
-    file-name: database
+    file_name: database
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: dependencies.jinja
-    file-path: /{{full_model.name.lower()}}/
+    is_base: False
+    is_macro: False
+  - template_path: dependencies.jinja
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: dependencies
-    file-name: dependencies
+    file_name: dependencies
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: main.jinja
-    file-path: /{{full_model.name.lower()}}/
+    is_base: False
+    is_macro: False
+  - template_path: main.jinja
+    file_path: /{{full_model.name.lower()}}/
     path: /models
     name: main
-    file-name: main
+    file_name: main
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: models.jinja
-    file-path: /{{full_model.name.lower()}}/
+    is_base: False
+    is_macro: False
+  - template_path: models.jinja
+    file_path: /{{full_model.name.lower()}}/
     path: /models
     name: model
-    file-name: models
+    file_name: models
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: routers.jinja
-    file-path: /{{full_model.name.lower()}}/routers
+    is_base: False
+    is_macro: False
+  - template_path: routers.jinja
+    file_path: /{{full_model.name.lower()}}/routers
     path: /models
     name: routers
-    file-name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
+    file_name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: schemas.jinja
-    file-path: /{{full_model.name.lower()}}/schemas
+    is_base: False
+    is_macro: False
+  - template_path: schemas.jinja
+    file_path: /{{full_model.name.lower()}}/schemas
     path: /models
     name: schemas
-    file-name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
+    file_name: '{%- if model.name.lower().endswith("y") -%}{{model.name.lower()[0:-1]}}ies{%- elif model.name.lower().endswith("s") -%}{{model.name.lower()}}{%- else -%}{{model.name.lower()}}s{%- endif -%}'
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: macros/pytype.jinja
-    file-path:
+    is_base: False
+    is_macro: False
+  - template_path: readme.jinja
+    file_path: /
+    path: /
+    name: readme
+    file_name: README
+    type: md
+    is_base: False
+    is_macro: False
+  - template_path: make.jinja
+    file_path: /
+    path: /
+    name: makefile
+    file_name: Makefile
+    type:
+    is_base: False
+    is_macro: False
+  - template_path: docker.jinja
+    file_path: /
+    path: /
+    name: docker
+    file_name: Dockerfile
+    type:
+    is_base: False
+    is_macro: False
+  - template_path: macros/pytype.jinja
+    file_path:
     path:
     name: pytype
-    file-name:
+    file_name:
     type:
-    is-base: False
-    is-macro: True
+    is_base: False
+    is_macro: True

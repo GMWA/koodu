@@ -1,66 +1,66 @@
 name: django
 templates:
-  - template-path: requirements.jinja
-    file-path: /
+  - template_path: requirements.jinja
+    file_path: /
     path: /
     name: requirements
-    file-name: requirements
+    file_name: requirements
     type: txt
-    is-base: False
-    is-macro: False
-  - template-path: manage.jinja
-    file-path: /
+    is_base: False
+    is_macro: False
+  - template_path: manage.jinja
+    file_path: /
     path: /
     name: manage
-    file-name: manage
+    file_name: manage
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: asgi.jinja
-    file-path: /config/
+    is_base: False
+    is_macro: False
+  - template_path: asgi.jinja
+    file_path: /config/
     path: /
     name: asgi
-    file-name: asgi
+    file_name: asgi
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: wsgi.jinja
-    file-path: /config/
+    is_base: False
+    is_macro: False
+  - template_path: wsgi.jinja
+    file_path: /config/
     path: /
     name: wsgi
-    file-name: wsgi
+    file_name: wsgi
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: settings.jinja
-    file-path: /config/
+    is_base: False
+    is_macro: False
+  - template_path: settings.jinja
+    file_path: /config/
     path: /
     name: settings
-    file-name: settings
+    file_name: settings
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: confinit.jinja
-    file-path: /config/
+    is_base: False
+    is_macro: False
+  - template_path: confinit.jinja
+    file_path: /config/
     path: /
     name: init
-    file-name: __init__
+    file_name: __init__
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: confurls.jinja
-    file-path: /config/
+    is_base: False
+    is_macro: False
+  - template_path: confurls.jinja
+    file_path: /config/
     path: /
     name: confurls
-    file-name: urls
+    file_name: urls
     type: py
-    is-base: False
-    is-macro: False
-  - template-path: confviews.jinja
-    file-path: /config/
+    is_base: False
+    is_macro: False
+  - template_path: confviews.jinja
+    file_path: /config/
     path: /
     name: confviews
-    file-name: views
+    file_name: views
     type: py
-    is-base: False
-    is-macro: False
+    is_base: False
+    is_macro: False

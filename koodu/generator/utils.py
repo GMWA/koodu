@@ -1,7 +1,24 @@
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Union
 
 import yaml
+from pydantic import BaseModel
+
+
+class TemplateConfigSchema(BaseModel):
+    template_path: str
+    file_path: Union[str, None] = None
+    path: Union[str, None] = None
+    name: str
+    file_name: Union[str, None] = None
+    type: Union[str, None] = None
+    is_base: Union[bool, None] = False
+    is_macro: Union[bool, None] = False
+
+
+class ConfigSchema(BaseModel):
+    name: Union[str, None] = None
+    templates: List[Union[TemplateConfigSchema, None]] = None
 
 
 def get_all_files(folder: Path) -> Dict[str, Path]:
@@ -21,7 +38,7 @@ def get_all_files(folder: Path) -> Dict[str, Path]:
     return result
 
 
-def load_template_config(folder: Path) -> List[Dict[str, str]]:
+def load_template_config(folder: Path) -> ConfigSchema:
     """Read the template config file.
 
     Args:
@@ -35,4 +52,4 @@ def load_template_config(folder: Path) -> List[Dict[str, str]]:
     with open(config_path, "r") as fp:
         configs = yaml.load(fp, Loader=yaml.FullLoader)
 
-    return configs
+    return ConfigSchema(**configs)

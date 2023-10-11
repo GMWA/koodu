@@ -25,10 +25,6 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
 
-      # build and deploy docs
-      - run: pip install mkdocs mkdocs-material mkdocs-material-extensions
-      - run: mkdocs gh-deploy --force --clean --verbose
-
       # Install & configure poetry
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -52,12 +48,6 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       # Do the actuall checks and run tests
-      - name: Black check
+      - name: Lint check
         run: |
-          poetry run black src/ --check
-      - name: Ruff check
-        run: |
-          poetry run ruff src/
-      - name: Test with pytest
-        run: |
-          poetry run pytest -vv
+          make lint

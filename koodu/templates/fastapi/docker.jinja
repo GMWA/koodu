@@ -1,0 +1,17 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# We create our env file for the database path
+RUN echo "SQLALCHEMY_DATABASE_URL=sqlite:///{{ full_model.name.lower() }}.data" > /app/.env
+
+COPY {{ full_model.name.lower() }}.data requirements.txt Makefile ./
+
+RUN pip install -U pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+COPY {{ full_model.name.lower() }} {{ full_model.name.lower() }}
+
+EXPOSE 8000
+
+CMD ["uvicorn", "{{ full_model.name.lower() }}.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
