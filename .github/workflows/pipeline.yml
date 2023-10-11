@@ -25,10 +25,6 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
 
-      # build and deploy docs
-      - run: pip install mkdocs mkdocs-material mkdocs-material-extensions
-      - run: mkdocs gh-deploy --force --clean --verbose
-
       # Install & configure poetry
       - name: Install Poetry
         uses: snok/install-poetry@v1
