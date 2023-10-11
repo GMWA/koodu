@@ -1,7 +1,23 @@
 from pathlib import Path
-from typing import Dict, List
-
+from typing import Dict, List, Union
+from pydantic import BaseModel
 import yaml
+
+
+class TemplateConfigSchema(BaseModel):
+    template_path: str
+    file_path: Union[str, None] = None
+    path: Union[str, None] = None
+    name: str
+    file_name: Union[str, None] = None
+    type: Union[str, None] = None
+    is_base: Union[bool, None] = False
+    is_macro: Union[bool, None] = False
+
+
+class ConfigSchema(BaseModel):
+    name: Union[str, None] = None
+    templates: List[Union[TemplateConfigSchema, None]] = None
 
 
 def get_all_files(folder: Path) -> Dict[str, Path]:
