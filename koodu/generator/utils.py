@@ -37,7 +37,7 @@ def get_all_files(folder: Path) -> Dict[str, Path]:
     return result
 
 
-def load_template_config(folder: Path) -> List[Dict[str, str]]:
+def load_template_config(folder: Path) -> ConfigSchema:
     """Read the template config file.
 
     Args:
@@ -51,4 +51,4 @@ def load_template_config(folder: Path) -> List[Dict[str, str]]:
     with open(config_path, "r") as fp:
         configs = yaml.load(fp, Loader=yaml.FullLoader)
 
-    return configs
+    return ConfigSchema(**configs)
