@@ -58,10 +58,7 @@ koodu list models
 ### generate code using a template and et model
 
 ```
-koodu generate
-> -t path-to-template
-> -m path-to-model
-> -o output-path
+koodu generate -t fastapi -m blog -o ./examples/blog
 ```
 The path to temple can be replace directly with build in template such as `frontend` or `backend`
 
@@ -75,11 +72,11 @@ import json
 from pathlib import Path
 from koodu.generator import Generator
 
-with open(Path("path-to-model"), "r", encoding="utf-8") as fp:
+with open(Path("./koodu/models/blog.json"), "r", encoding="utf-8") as fp:
     model = json.loads(fp.read())
 
-template_path = Path("path-to-template")
-output_path = Path("output-path")
+template_path = Path("./koodu/templates/fastapi")
+output_path = Path("./examples/blog")
 generator = Generator(
     model=model,
     template_folder=template_path,
