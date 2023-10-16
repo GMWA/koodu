@@ -1,4 +1,4 @@
-name: api
+name: flask
 templates:
   - template_path: models.jinja
     file_path: /

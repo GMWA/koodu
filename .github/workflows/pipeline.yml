@@ -1,4 +1,4 @@
-name: Linting
+name: Linting and Test
 
 on:
   pull_request:
@@ -51,3 +51,8 @@ jobs:
       - name: Lint check
         run: |
           make lint
+
+      - name: Run Tests with Coverage
+        run: |
+          poetry run coverage run -m pytest -vv
+          poetry run coverage report -m
