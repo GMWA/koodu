@@ -2,7 +2,23 @@
   <a href="https://gmwa.github.io/koodu/"><img src="https://github.com/GMWA/koodu/blob/main/docs/assets/images/koodu.png" alt="Koodu"></a>
 </p>
 <p align="center">
-    <em>Simple and lightweight code generator engine written in python</em>
+    <em>Koodu, simple code generator engine written in python.</em>
+</p>
+
+
+<p align="center">
+    <a href="https://pypi.org/project/koodu" target="_blank">
+        <img src="https://img.shields.io/pypi/v/koodu?color=%2334D058&label=version" alt="Package version">
+    </a>
+    <a href="https://pypi.org/project/koodu" target="_blank">
+        <img src="https://img.shields.io/pypi/pyversions/koodu.svg?color=%2334D058" alt="Supported Python versions">
+    </a>
+    <a href="https://pypi.org/project/koodu" target="_blank">
+        <img src="https://img.shields.io/pypi/dm/koodu?color=%2334D058&label=downloads" alt="PyPI - Downloads">
+    </a>
+    <a href="https://pypi.org/project/koodu" target="_blank">
+        <img src="https://img.shields.io/pypi/l/koodu?color=%2334D058&label=licence" alt="PyPI - License">
+    </a>
 </p>
 
 ---
@@ -55,7 +71,7 @@ $ pip install -e
 generate code using a template and et model
 
 ```
-koodu generate -t fastapi -m blog -o ./examples/blog
+koodu generate -t fastapi -m koodu/models/blog.json -o ./examples/blog
 ```
 
 ### using as Python package

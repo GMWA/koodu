@@ -60,7 +60,7 @@ koodu list models
 ```
 koodu generate -t fastapi -m blog -o ./examples/blog
 ```
-The path to temple can be replace directly with build in template such as `frontend` or `backend`
+The path to template can be replace directly with build in template such as `fastapi` or `flask`
 
 
 ## Usage as python library
