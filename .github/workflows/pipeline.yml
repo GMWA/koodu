@@ -56,13 +56,3 @@ jobs:
         run: |
           poetry run coverage run -m pytest -vv
           poetry run coverage report -m
-          poetry run coverage xml
-        env:
-          COVERAGE_FILE: coverage.xml
-
-      - name: Upload Coverage Report
-        uses: codecov/codecov-action@v2
-        with:
-          file: coverage.xml
-          flags: unittests
-        if: success()
