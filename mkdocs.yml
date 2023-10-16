@@ -12,7 +12,6 @@ repo_name: GMWA/koodu
 repo_url: https://github.com/GMWA/koodu
 nav:
   - Home: index.md
-  - Install: install.md
   - Koodu Generator: generator.md
   - Testing: testing.md
   - Available Templates: templates.md
