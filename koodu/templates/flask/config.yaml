@@ -1,0 +1,34 @@
+name: flask
+templates:
+  - template_path: models.jinja
+    file_path: /
+    path: /models
+    name: model
+    file_name: models
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: controllers.jinja
+    file_path: /
+    path: /models
+    name: controller
+    file_name: controllers
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: database.jinja
+    file_path: /
+    path: /models
+    name: database
+    file_name: database
+    type: sql
+    is_base: False
+    is_macro: False
+  - template_path: parser.jinja
+    file_path: /
+    path: /models
+    name: parser
+    file_name: parser
+    type: py
+    is_base: False
+    is_macro: False

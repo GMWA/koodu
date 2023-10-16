@@ -1,0 +1,54 @@
+from flask_restful import reqparse
+from werkzeug.exceptions import default_exceptions
+{%- macro getpytype(typename) -%}
+{%- if typename == "String" or typename == "Text" -%}
+str
+{%- elif typename == "Integer" or typename == "reference" -%}
+int
+{%- endif -%}
+{%- endmacro %}
+
+get_parser =  reqparse.RequestParser()
+{% for attrib in model.attributs -%}
+get_parser.add_argument(
+    "{{attrib.name}}",
+    type={{ getpytype(attrib.type) }},
+    help="{{attrib.name}} is required",
+    location=("json", "values")
+)
+{% endfor %}
+
+post_parser =  reqparse.RequestParser()
+{% for attrib in model.attributs -%}
+post_parser.add_argument(
+    "{{attrib.name}}",
+    type={{ getpytype(attrib.type) }},
+    help="{{attrib.name}} is required",
+    location=("json", "values")
+)
+{% endfor %}
+
+update_parser =  reqparse.RequestParser()
+update_parser =  reqparse.RequestParser()
+update_parser.add_argument(
+    "id",
+    type=int,
+    help="id is required",
+    location=("json", "values")
+)
+{% for attrib in model.attributs -%}
+update_parser.add_argument(
+    "{{attrib.name}}",
+    type={{ getpytype(attrib.type) }},
+    help="{{attrib.name}} is required",
+    location=("json", "values")
+)
+{% endfor %}
+
+delete_parser =  reqparse.RequestParser()
+delete_parser.add_argument(
+    "int",
+    type=int,
+    help="id is required",
+    location=("json", "values")
+)

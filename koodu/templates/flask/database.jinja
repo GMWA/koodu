@@ -1,0 +1,20 @@
+CREATE DATABASE {{full_model.name.lower()}};
+{% for mod in full_model.models %}
+{%- if mod.name.lower().endswith("y") %}
+CREATE TABLE `{{ mod.name.lower()[0:-1]+"ies" }}` (
+{%- else %}
+CREATE TABLE `{{ mod.name.lower()+"s" }}` (
+{%- endif %}
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    {%- for col in mod.attributs %}
+    {%- if col.type == "String" %}
+    {{col.name}} VARCHAR({{col.size}}),
+    {%- elif col.type == "Text" %}
+    {{col.name}} TEXT({{col.size}}),
+    {%- elif col.type == "reference" %}
+    {{col.name.lower()}} int,
+    FOREIGN KEY ({{col.name.lower()}}) REFERENCES {{col.model.lower()}}({{col.name.lower()}}),
+    {%- endif %}
+    {%- endfor %}
+);
+{% endfor %}
