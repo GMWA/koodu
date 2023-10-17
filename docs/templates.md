@@ -17,15 +17,15 @@ With our FastApi template users are able to generate projects with the following
 ```
 output/
 ├── project_name
-|   |── __init__.py
-│   |── routers/
-|   |   |── __init__.py
+│   ├── __init__.py
+│   ├── routers/
+│   │   ├── __init__.py
 │   │   ├── *.py
-│   |── schemas/
-|   |   |── __init__.py
+│   ├── schemas/
+│   │   ├── __init__.py
 │   │   ├── *.py
-|   |── database.py
-|   |── dependencies.py
+│   ├── database.py
+│   ├── dependencies.py
 │   ├── main.py
 │   ├── models.py
 ├── Dockerfile
