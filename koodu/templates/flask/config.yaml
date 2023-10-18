@@ -65,7 +65,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: controllers.jinja
-    file_path: /{{full_model.name.lower()}}/api/{{full_model.name.lower()}}/
+    file_path: /{{full_model.name.lower()}}/api/{{model.elem.name.lower()}}s/
     path: /models
     name: controller
     file_name: controllers
@@ -73,7 +73,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: parser.jinja
-    file_path: /{{full_model.name.lower()}}/api/{{full_model.name.lower()}}/
+    file_path: /{{full_model.name.lower()}}/api/{{model.elem.name.lower()}}s/
     path: /models
     name: parser
     file_name: parser
@@ -81,7 +81,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: fields.jinja
-    file_path: /{{full_model.name.lower()}}/api/{{full_model.name.lower()}}/
+    file_path: /{{full_model.name.lower()}}/api/{{model.elem.name.lower()}}s/
     path: /models
     name: fields
     file_name: fields

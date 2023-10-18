@@ -1,33 +1,54 @@
 import os
-from flask import request
+from flask import abort, request
 from flask_restfull import Ressource
 from {{ full_model.name.lower() }} import db
 {% for mod in full_model.models -%}
 from {{ full_model.name.lower() }}.models import {{mod.name}}
 {% endfor %}
 
-{% for mod in full_model.models %}
-class {{ mod.name }}Controller(Ressource):
+class {{ model.name }}sController(Ressource):
     def get(self):
-        return {{mod.name}}.query.all()
+        return {{model.name}}.query.all()
 
     def post(self):
-        {% for attrib in mod.attributs -%}
+        {% for attrib in model.attributs -%}
         {{attrib.name}} = request.args.get("{{attrib.name}}", None)
         {% endfor -%}
 
-        {{mod.name.lower()}} = {{mod.name}}()
-        {% for attrib in mod.attributs -%}
-        {{mod.name.lower()}}.{{attrib.name}} = {{attrib.name}}
+        {{model.name.lower()}} = {{model.name}}()
+        {% for attrib in model.attributs -%}
+        {{model.name.lower()}}.{{attrib.name}} = {{attrib.name}}
         {% endfor -%}
 
-        db.session.add({{mod.name.lower()}})
+        db.session.add({{model.name.lower()}})
         db.session.commit()
 
-    def put(self):
-        pass
 
-    def delete(self):
-        pass
+class {{ model.name }}Controller(Ressource):
+    def get(self, {{model.name.lower()}}_id):
+        db_{{model.name.lower()}} = {{model.name}}.query.get({{model.name.lower()}}_id)
+        if not db_{{model.name.lower()}}:
+            abort(404)
+        return db_{{model.name.lower()}}
 
-{% endfor %}
+    def put(self, {{model.name.lower()}}_id):
+        db_{{model.name.lower()}} = {{model.name}}.query.get({{model.name.lower()}}_id)
+        if not db_{{model.name.lower()}}:
+            abort(404)
+        {% for attrib in model.attributs -%}
+        {{attrib.name}} = request.args.get("{{attrib.name}}", None)
+        {% endfor -%}
+
+        {% for attrib in model.attributs -%}
+        db_{{model.name.lower()}}.{{attrib.name}} = {{attrib.name}}
+        {% endfor -%}
+
+        db.session.commit()
+
+    def delete(self, {{model.name.lower()}}_id):
+        db_{{model.name.lower()}} = {{model.name}}.query.get({{model.name.lower()}}_id)
+        if not db_{{model.name.lower()}}:
+            abort(404)
+
+        db.session.delete(db_{{model.name.lower()}})
+        db.session.commit()
