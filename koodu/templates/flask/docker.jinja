@@ -1,0 +1,22 @@
+FROM python:3.9-slim-buster
+WORKDIR /app
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Copy the requirements file
+COPY ./requirements.txt /app
+
+# install the dependencies
+RUN pip install -r requirements.txt
+
+# Copy the requirements file
+COPY . .
+
+# set FLASK_APP environment variables
+ENV FLASK_APP=server.py
+
+CMD ["flask", "run", "--host", "0.0.0.0"]
+
+EXPOSE 5000

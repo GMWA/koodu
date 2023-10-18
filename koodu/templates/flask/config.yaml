@@ -40,6 +40,14 @@ templates:
     type: md
     is_base: False
     is_macro: False
+  - template_path: docker.jinja
+    file_path: /
+    path: /
+    name: docker
+    file_name: Dockerfile
+    type:
+    is_base: False
+    is_macro: False
   - template_path: initapp.jinja
     file_path: /{{full_model.name.lower()}}/
     path: /models
