@@ -53,17 +53,17 @@ class GeneratorModelSchema(BaseModel):
     models: List[AttributSchema]
 
 
-class Objectview:
+class SingleModelView:
     """Convenience object to generate an object out a of a dict"""
 
-    def __init__(self, d):
-        self.dict = d
+    def __init__(self, model):
+        self.elem = model
 
     def __str__(self):
         return str(tuple(self))
 
     def __iter__(self):
-        for item in self.dict:
+        for item in self.elem:
             yield item
 
 
@@ -179,7 +179,7 @@ class Generator:
             (str): the file path
         """
         filepath = ""
-        args = {"model": Objectview(model), "full_model": self.model}
+        args = {"model": SingleModelView(model), "full_model": self.model}
         if len(template.file_path) > 0:
             tm = JTemplate(template.file_path)
             filepath = tm.render(args)
@@ -194,7 +194,7 @@ class Generator:
             try:
                 jinja_template = self.jinja_env.get_template(template.name)
                 args = {
-                    "model": model_element if from_list else Objectview(model_element),
+                    "model": model_element if from_list else SingleModelView(model_element),
                     "full_model": self.model,
                 }
                 ret_value = jinja_template.render(args)
