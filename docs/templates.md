@@ -2,14 +2,6 @@
 
 When installed, koodu also contains a series of templates that can be used to generate code for web applications based on a number of well-known frameworks.
 
-## Flask Template
-
-With our Flask template users are able to generate projects with the following structure:
-
-```
-
-```
-
 ## FastApi Template
 
 With our FastApi template users are able to generate projects with the following structure:
@@ -35,9 +27,11 @@ output/
 └── requirements.txt
 ```
 
+* `models.py` contains de definition of our models.
+* `manage.py`: This is a cli tool to manage database migration in app.
 * The `routers` folder contains differents python file(one for each resource) and each file contains the differents endpoint(CRUD) implementation for the ressource.
-
 * The `schemas` folder contains differents python file(one for each resource) and each file contains the Schemas definitions for that ressource.
+* `Dokerfile`: the Dockerfile manifest to build the app as docker image.
 
 ## Django Template
 
@@ -46,6 +40,37 @@ With our Django template users are able to generate projects with the following 
 ```
 
 ```
+
+## Flask Template
+
+With our Flask template users are able to generate projects with the following structure:
+
+```
+output/
+├── project_name/
+│   ├── __init__.py
+│   ├── api/
+│   │   ├──__init__.py
+│   │   ├──ressouce/
+│   │   │   ├── controllers.py
+│   │   │   ├── fields.py
+│   │   │   ├── parsers.py
+│   ├── models.py
+├── manage.py
+├── README.md
+└── requirements.txt
+```
+
+* `models.py` contains de definition of our models.
+* The `api` folder contains differents folder(one for each resource) and each of these folders has:
+    * `controllers.py`: The controllers for the resource.
+    * `fields.py`: The fields for the ressource.
+    * `parsers.py`: The parsers for the resource.
+* `api/__init__.py`: This is where the api is initialized as Blueprint.
+* `__init__.py`: the is where the Flask app itself is initialized.
+* `manage.py`: This is a cli tool to manage database migration in app.
+* `Dokerfile`: the Dockerfile manifest to build the app as docker image.
+
 
 ## Express.Js Template
 
