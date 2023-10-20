@@ -48,6 +48,14 @@ templates:
     type:
     is_base: False
     is_macro: False
+  - template_path: env.jinja
+    file_path: /
+    path: /
+    name: env
+    file_name: .env
+    type:
+    is_base: False
+    is_macro: False
   - template_path: initapp.jinja
     file_path: /{{full_model.name.lower()}}/
     path: /models
