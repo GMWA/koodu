@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import Dict
 
-from koodu.exceptions import BadArgumentsException
 from koodu.scripts.utils import (
     check_all_template,
     convert_symbols,
@@ -16,12 +15,14 @@ def check_templates(args) -> None:
     templates = get_files_from_folder()
     valids = check_all_template(templates)
     symbols = convert_symbols(valids)
-
+    output = []
     for path, status in zip(templates, symbols):
-        print(path, status)
+        output.append(f"{path} {status}")
+    return output
 
 
 def list_command(args) -> Dict[str, str]:
+    output = []
     if args.option == "models" or args.option == "m":
         model_path = Path(Path("./koodu/models").resolve())
 
@@ -32,7 +33,7 @@ def list_command(args) -> Dict[str, str]:
         ]
         for model in models:
             name = model.stem
-            print(f"{name}:\t{model}")
+            output.append(f"{name}: {model}")
 
     elif args.option == "templates" or args.option == "t":
         template_path = Path("./koodu/templates").resolve()
@@ -40,8 +41,6 @@ def list_command(args) -> Dict[str, str]:
         templates = [elem for elem in template_path.glob("*") if elem.is_dir()]
         for template in templates:
             name = template.stem
-            print(f"{name}:\t{template}")
-    else:
-        raise BadArgumentsException(
-            "the passed arguments do not match the requirements!"
-        )
+            output.append(f"{name}: {template}")
+
+    return output

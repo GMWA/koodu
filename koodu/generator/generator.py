@@ -194,7 +194,9 @@ class Generator:
             try:
                 jinja_template = self.jinja_env.get_template(template.name)
                 args = {
-                    "model": model_element if from_list else SingleModelView(model_element),
+                    "model": model_element
+                    if from_list
+                    else SingleModelView(model_element),
                     "full_model": self.model,
                 }
                 ret_value = jinja_template.render(args)
