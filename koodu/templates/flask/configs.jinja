@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class Config(object):
@@ -8,6 +10,4 @@ class Config(object):
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CORS_HEADERS = "Content-Type"
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_BASE_URL", "sqlite:///") + os.path.join(
-        BASE_DIR, os.environ.get("DATABASE_FILE", "tmsystem.sqlite")
-    )
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_BASE_URL")

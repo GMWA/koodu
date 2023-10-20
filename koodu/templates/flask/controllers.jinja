@@ -1,12 +1,12 @@
 import os
 from flask import abort, request
-from flask_restfull import Ressource
+from flask_restful import Resource
 from {{ full_model.name.lower() }} import db
 {% for mod in full_model.models -%}
 from {{ full_model.name.lower() }}.models import {{mod.name}}
 {% endfor %}
 
-class {{ model.name }}sController(Ressource):
+class {{ model.name }}sController(Resource):
     def get(self):
         return {{model.name}}.query.all()
 
@@ -24,7 +24,7 @@ class {{ model.name }}sController(Ressource):
         db.session.commit()
 
 
-class {{ model.name }}Controller(Ressource):
+class {{ model.name }}Controller(Resource):
     def get(self, {{model.name.lower()}}_id):
         db_{{model.name.lower()}} = {{model.name}}.query.get({{model.name.lower()}}_id)
         if not db_{{model.name.lower()}}:

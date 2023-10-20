@@ -10,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 from configs import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
 db = SQLAlchemy(app)
 cors = CORS(app)
@@ -17,7 +18,6 @@ migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
-app.config.from_object(Config)
 
 from {{full_model.name.lower()}}.api import create_module as api_create_module
 
