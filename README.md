@@ -31,35 +31,37 @@ Koodu is a simple universal code generator. It allows users to generate codes wi
 ### from code source
 
 Clone this repository and run:
-```
-python -m pip install .
+
+```console
+$ python -m pip install .
 ```
 
 ### from the index
 
-```
-pip install koodu
+```console
+$ pip install koodu
 ```
 
 ## Usage as CLI
 
 ### List the available templates
 
-```
-koodu list templates
+```console
+$ koodu list templates
 ```
 
 ### List the available models
 
-```
-koodu list models
+```console
+$ koodu list models
 ```
 
 ### generate code using a template and et model
 
+```console
+$ koodu generate -t fastapi -m blog -o ./examples/blog
 ```
-koodu generate -t fastapi -m blog -o ./examples/blog
-```
+
 The path to template can be replace directly with build in template such as `fastapi` or `flask`
 
 
