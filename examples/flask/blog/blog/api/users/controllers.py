@@ -1,12 +1,12 @@
 import os
 from flask import abort, request
-from flask_restfull import Ressource
+from flask_restful import Resource
 from blog import db
 from blog.models import User
 from blog.models import Post
 
 
-class UsersController(Ressource):
+class UsersController(Resource):
     def get(self):
         return User.query.all()
 
@@ -24,7 +24,7 @@ class UsersController(Ressource):
         db.session.commit()
 
 
-class UserController(Ressource):
+class UserController(Resource):
     def get(self, user_id):
         db_user = User.query.get(user_id)
         if not db_user:
