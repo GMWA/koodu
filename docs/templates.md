@@ -33,6 +33,12 @@ output/
 * The `schemas` folder contains differents python file(one for each resource) and each file contains the Schemas definitions for that ressource.
 * `Dokerfile`: the Dockerfile manifest to build the app as docker image.
 
+### The generated project use the following external paquets
+
+* sqlalchemy
+* pydantic
+
+
 ## Django Template
 
 With our Django template users are able to generate projects with the following structure:
@@ -70,6 +76,15 @@ output/
 * `__init__.py`: the is where the Flask app itself is initialized.
 * `manage.py`: This is a cli tool to manage database migration in app.
 * `Dokerfile`: the Dockerfile manifest to build the app as docker image.
+
+### The generated project use the following external paquets
+
+* Flask-SqlAlchemy
+* Flask-Bcrypt
+* Flask-Migrate
+* Flask-RESTful
+* Flask-Cors
+* Flask-JWT-Extended
 
 
 ## Express.Js Template
