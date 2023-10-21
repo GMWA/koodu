@@ -6,7 +6,7 @@ When installed, koodu also contains a series of templates that can be used to ge
 
 With our FastApi template users are able to generate projects with the following structure:
 
-```
+```sh
 output/
 ├── project_name
 │   ├── __init__.py
@@ -51,7 +51,7 @@ With our Django template users are able to generate projects with the following 
 
 With our Flask template users are able to generate projects with the following structure:
 
-```
+```sh
 output/
 ├── project_name/
 │   ├── __init__.py

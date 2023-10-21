@@ -52,7 +52,7 @@ The installation can be done using both `pip` and also using `the source code`.
 
 ### Installation with pip
 
-```console
+```sh
 $ pip install koodu
 ```
 
@@ -70,8 +70,8 @@ $ pip install -e
 ### using as CLI tool
 generate code using a template and et model
 
-```
-koodu generate -t fastapi -m koodu/models/blog.json -o ./examples/blog
+```sh
+$ koodu generate -t fastapi -m koodu/models/blog.json -o ./examples/blog
 ```
 
 ### using as Python package
