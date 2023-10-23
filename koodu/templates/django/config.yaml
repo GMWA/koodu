@@ -64,3 +64,75 @@ templates:
     type: py
     is_base: False
     is_macro: False
+  - template_path: apiadmin.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apiadmin
+    file_name: admin
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apiapps.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apps
+    file_name: apps
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apiinit.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apiinit
+    file_name: __init__
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apimodels.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apimodels
+    file_name: models
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apiserializers.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apiserializers
+    file_name: serializers
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apitests.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apitests
+    file_name: tests
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apiurls.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apiurls
+    file_name: urls
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apiviews.jinja
+    file_path: /{{full_model.name.lower()}}_api/
+    path: /
+    name: apiviews
+    file_name: views
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: apimigrationsinit.jinja
+    file_path: /{{full_model.name.lower()}}_api/migrations/
+    path: /
+    name: apimigrationsinit
+    file_name: __init__
+    type: py
+    is_base: False
+    is_macro: False
