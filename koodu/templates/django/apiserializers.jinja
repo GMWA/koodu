@@ -1,0 +1,13 @@
+from rest_framework import serializers
+from .models import {{full_model.name}}
+
+{% for mod in full_model.models %}
+class {{full_model.name}}Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = {{full_model.name}}
+        fields = [
+            {% for attrib in mod.attributs -%}
+            "{{ attrib.name }}",
+            {% endfor %}
+        ]
+{% endfor %}
