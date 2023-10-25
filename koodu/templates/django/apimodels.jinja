@@ -1,0 +1,26 @@
+from django.db import models
+
+# Create your models here.
+from django.contrib.auth.models import User
+{%- macro get_field(typename, size) -%}
+{%- if typename == "String" or typename == "Text" -%}
+models.CharField(max_length = {{size}})
+{%- elif typename == "reference" -%}
+models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
+{%- elif typename == "Integer" -%}
+models.CharField(max_length = {{size}})
+{%- elif typename == "Boolean" -%}
+models.BooleanField(default = False, blank = True)
+{%- endif -%}
+{%- endmacro %}
+
+{% for mod in full_model.models %}
+{%- if mod.name != "User" -%}
+class {{mod.name}}(models.Model):
+    {% for attrib in mod.attributs -%}
+    {{ attrib.name }} = {{ get_field(attrib.type, attrib.size) }}
+    {% endfor %}
+    def __str__(self):
+        return self.id
+{%- endif -%}
+{% endfor %}
