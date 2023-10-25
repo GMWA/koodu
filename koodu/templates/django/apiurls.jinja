@@ -1,10 +1,18 @@
 from django.urls import path
 from .views import (
-    {{full_model.name}}ListApiView,
-    {{full_model.name}}DetailApiView
+    {%- for mod in full_model.models %}
+    {%- if mod.name != "User" %}
+    {{mod.name}}ListApiView,
+    {{mod.name}}DetailApiView,
+    {%- endif -%}
+    {%- endfor %}
 )
 
 urlpatterns = [
-    path('api', {{full_model.name}}ListApiView.as_view()),
-    path('api/<int:{{full_model.name.lower()}}_id>/', {{full_model.name}}DetailApiView.as_view()),
+    {%- for mod in full_model.models %}
+    {%- if mod.name != "User" %}
+    path('api', {{mod.name}}ListApiView.as_view()),
+    path('api/<int:{{mod.name.lower()}}_id>/', {{mod.name}}DetailApiView.as_view()),
+    {%- endif -%}
+    {%- endfor %}
 ]
