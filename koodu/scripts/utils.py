@@ -5,7 +5,7 @@ from jinja2 import Environment
 from jinja2.exceptions import TemplateSyntaxError
 
 
-def get_files_from_folder(folder: Path = Path("./")) -> List[Path]:
+def get_files_from_folder(folder: Path = Path(__file__)) -> List[Path]:
     """Recusively get all template in a Folder
     Args:
         folder (Path): The path to the folder.
