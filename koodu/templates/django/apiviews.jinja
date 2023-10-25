@@ -28,7 +28,7 @@ class {{mod.name}}ListApiView(APIView):
         '''
         List all the {{mod.name.lower()}} items for given requested user
         '''
-        {{mod.name.lower()}}s = {{mod.name}}.objects.filter(user = request.user.id)
+        {{mod.name.lower()}}s = {{mod.name}}.objects.filter(user_id = request.user.id)
         serializer = {{mod.name}}Serializer({{mod.name.lower()}}s, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -40,7 +40,7 @@ class {{mod.name}}ListApiView(APIView):
         data = {
             {%- for attrib in mod.attributs -%}
             {%- if attrib.type == "reference" and attrib.model == "User" %}
-            'user': request.user.id,
+            '{{ attrib.name }}': request.user.id,
             {%- else %}
             '{{ attrib.name }}': request.data.get('{{ attrib.name }}'),
             {%- endif -%}
@@ -63,7 +63,7 @@ class {{mod.name}}DetailApiView(APIView):
         Helper method to get the object with given {{mod.name.lower()}}_id, and user_id
         '''
         try:
-            return {{mod.name}}.objects.get(id={{mod.name.lower()}}_id, user = user_id)
+            return {{mod.name}}.objects.get(id={{mod.name.lower()}}_id, user_id = user_id)
         except {{mod.name}}.DoesNotExist:
             return None
 
@@ -96,7 +96,7 @@ class {{mod.name}}DetailApiView(APIView):
         data = {
             {%- for attrib in mod.attributs -%}
             {%- if attrib.type == "reference" and attrib.model == "User" %}
-            'user': request.user.id,
+            '{{ attrib.name }}': request.user.id,
             {%- else %}
             '{{ attrib.name }}': request.data.get('{{ attrib.name }}'),
             {%- endif -%}
