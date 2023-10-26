@@ -1,0 +1,17 @@
+from flask_restful import Api
+{%- for mod in full_model.models %}
+from .{{mod.name.lower()}}s.controllers import {{mod.name}}sController, {{mod.name}}Controller
+{%- endfor %}
+
+
+api = Api()
+
+
+def create_module(app):
+    {%- for mod in full_model.models %}
+    api.add_resource({{mod.name}}sController, "/api/users")
+    api.add_resource({{mod.name}}Controller, "/api/users/<int:{{mod.name.lower()}}_id>")
+    {%- endfor %}
+
+    api.init_app(app)
+    app.logger.info("REST API module loaded.")

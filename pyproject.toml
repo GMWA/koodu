@@ -51,6 +51,6 @@ select = [
     # isort
     "I001"
 ]
-exclude = [
-    "examples"
+extend-exclude = [
+    "examples/"
 ]

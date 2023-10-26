@@ -15,8 +15,8 @@ release:  # Build a new version and release it
 	poetry publish
 
 lint: # Format the code correctly
-	poetry run black .
-	poetry run ruff --fix .
+	poetry run black koodu tests
+	poetry run ruff --fix koodu tests
 
 clean:  # Clear any cache files and test files
 	rm -rf .pytest_cache

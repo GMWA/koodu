@@ -19,7 +19,6 @@ def print_koodu():
 
 
 def main():
-    print_koodu()
     parser = argparse.ArgumentParser(
         description="koodu CLI Tool - Simple and lightweight code generator engine.",
         usage="koodu [options] arguments",
@@ -67,9 +66,11 @@ def main():
     if args.command == "generate":
         generate(args)
     elif args.command == "check":
-        check_templates(args)
+        output = check_templates(args)
+        print("\n".join(output))
     elif args.command == "list":
-        list_command(args)
+        output = list_command(args)
+        print("\n".join(output))
 
 
 if __name__ == "__main__":

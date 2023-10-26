@@ -9,7 +9,7 @@ class {{ mod.name }}(db.Model):
     __tablename__ = "{{mod.name.lower()}}s"
     {%- endif %}
 
-    id = db.Column(db.Integer(), primary=True)
+    id = db.Column(db.Integer(), primary_key=True)
     {% for attrib in mod.attributs -%}
     {%- if not attrib.type == "reference" -%}
     {{ attrib.name }} = db.Column(db.{{ attrib.type }}({{attrib.size}}))

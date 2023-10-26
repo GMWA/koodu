@@ -10,31 +10,37 @@
 
 #### HOW TO SET UP
 
-```
-# Put appropriate parameters inside .env.example
-make install-deps
+* Put appropriate parameters inside .env.example
+* install dependencies
+
+```sh
+$ make install-deps
 ```
 
 #### HOW TO LAUNCH
 
 ##### DEV
 
-# formating
-make lint
+formating
+
+```sh
+$ make lint
 ```
 
 ##### PROD
 
 Or Using Docker
 
-```
-# This will build your docker image
-make docker-build
+* build your docker image
+
+```sh
+$ make docker-build
 ```
 
-```
-# This will install and run your project on port 8000
-make docker-run
+* run your project on port 8000
+
+```sh
+$ make docker-run
 ```
 
 ### To run the project [fastapi]
@@ -42,6 +48,7 @@ make docker-run
 - Install the virtualenv
 
 - Run the project
-```
-make run
+
+```sh
+$ make run
 ```

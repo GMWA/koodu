@@ -1,34 +1,106 @@
 name: flask
 templates:
-  - template_path: models.jinja
+  - template_path: requirements.jinja
     file_path: /
+    path: /
+    name: requirements
+    file_name: requirements
+    type: txt
+    is_base: False
+    is_macro: False
+  - template_path: server.jinja
+    file_path: /
+    path: /
+    name: server
+    file_name: server
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: configs.jinja
+    file_path: /
+    path: /
+    name: configs
+    file_name: configs
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: manage.jinja
+    file_path: /
+    path: /models
+    name: manage
+    file_name: manage
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: readme.jinja
+    file_path: /
+    path: /
+    name: readme
+    file_name: README
+    type: md
+    is_base: False
+    is_macro: False
+  - template_path: docker.jinja
+    file_path: /
+    path: /
+    name: docker
+    file_name: Dockerfile
+    type:
+    is_base: False
+    is_macro: False
+  - template_path: env.jinja
+    file_path: /
+    path: /
+    name: env
+    file_name: .env
+    type:
+    is_base: False
+    is_macro: False
+  - template_path: initapp.jinja
+    file_path: /{{full_model.name.lower()}}/
+    path: /models
+    name: initapp
+    file_name: __init__
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: models.jinja
+    file_path: /{{full_model.name.lower()}}/
     path: /models
     name: model
     file_name: models
     type: py
     is_base: False
     is_macro: False
+  - template_path: initapi.jinja
+    file_path: /{{full_model.name.lower()}}/api/
+    path: /models
+    name: initapi
+    file_name: __init__
+    type: py
+    is_base: False
+    is_macro: False
   - template_path: controllers.jinja
-    file_path: /
+    file_path: /{{full_model.name.lower()}}/api/{{model.elem.name.lower()}}s/
     path: /models
     name: controller
     file_name: controllers
     type: py
     is_base: False
     is_macro: False
-  - template_path: database.jinja
-    file_path: /
-    path: /models
-    name: database
-    file_name: database
-    type: sql
-    is_base: False
-    is_macro: False
   - template_path: parser.jinja
-    file_path: /
+    file_path: /{{full_model.name.lower()}}/api/{{model.elem.name.lower()}}s/
     path: /models
     name: parser
     file_name: parser
+    type: py
+    is_base: False
+    is_macro: False
+  - template_path: fields.jinja
+    file_path: /{{full_model.name.lower()}}/api/{{model.elem.name.lower()}}s/
+    path: /models
+    name: fields
+    file_name: fields
     type: py
     is_base: False
     is_macro: False

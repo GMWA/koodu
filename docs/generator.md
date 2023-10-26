@@ -17,11 +17,11 @@ import json
 from pathlib import Path
 from koodu.generator import Generator
 
-with open(Path("path-to-model"), "r", encoding="utf-8") as fp:
+with open(Path("./koodu/models/blog.json"), "r", encoding="utf-8") as fp:
     model = json.loads(fp.read())
 
-template_path = Path("path-to-template")
-output_path = Path("output-path")
+template_path = Path("./koodu/templates/fastapi")
+output_path = Path("./examples/blog")
 generator = Generator(
     model=model,
     template_folder=template_path,
@@ -44,18 +44,28 @@ This option is used to generate the code. it requires the following:parameters:
 * -m path to model
 * -o output path
 
+```sh
+$ koodu list models
+```
+
 ### koodu list
 
 This option can be used to list the available templates or module.
 
-**List the available templates**
+### **List the available templates**
 
-```
-koodu list templates
+```sh
+$ koodu list templates
 ```
 
-**List the available models**
+### **List the available models**
 
+```sh
+$ koodu list models
 ```
-koodu list models
+
+### **List the available models**
+
+```sh
+$ koodu check models
 ```
