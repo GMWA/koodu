@@ -17,21 +17,21 @@ class CategoryListApiView(APIView):
 
     # 1. List all
     def get(self, request, *args, **kwargs):
-        '''
+        """
         List all the category items for given requested user
-        '''
+        """
         categorys = Category.objects.filter(user_id = request.user.id)
         serializer = CategorySerializer(categorys, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 2. Create
     def post(self, request, *args, **kwargs):
-        '''
+        """
         Create the Category with given category data
-        '''
+        """
         data = {
-            'name': request.data.get('name'),
-            'description': request.data.get('description'),
+            "name": request.data.get("name"),
+            "description": request.data.get("description"),
         }
         serializer = CategorySerializer(data=data)
         if serializer.is_valid():
@@ -46,9 +46,9 @@ class CategoryDetailApiView(APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, category_id, user_id):
-        '''
+        """
         Helper method to get the object with given category_id, and user_id
-        '''
+        """
         try:
             return Category.objects.get(id=category_id, user_id = user_id)
         except Category.DoesNotExist:
@@ -56,9 +56,9 @@ class CategoryDetailApiView(APIView):
 
     # 3. Retrieve
     def get(self, request, category_id, *args, **kwargs):
-        '''
+        """
         Retrieves the Category with given category_id
-        '''
+        """
         category_instance = self.get_object(category_id, request.user.id)
         if not category_instance:
             return Response(
@@ -71,9 +71,9 @@ class CategoryDetailApiView(APIView):
 
     # 4. Update
     def put(self, request, category_id, *args, **kwargs):
-        '''
+        """
         Updates the category item with given category_id if exists
-        '''
+        """
         category_instance = self.get_object(category_id, request.user.id)
         if not category_instance:
             return Response(
@@ -81,8 +81,8 @@ class CategoryDetailApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'name': request.data.get('name'),
-            'description': request.data.get('description'),
+            "name": request.data.get("name"),
+            "description": request.data.get("description"),
         }
         serializer = CategorySerializer(instance = category_instance, data=data, partial = True)
         if serializer.is_valid():
@@ -92,9 +92,9 @@ class CategoryDetailApiView(APIView):
 
     # 5. Delete
     def delete(self, request, category_id, *args, **kwargs):
-        '''
+        """
         Deletes the category item with given category_id if exists
-        '''
+        """
         category_instance = self.get_object(category_id, request.user.id)
         if not category_instance:
             return Response(
@@ -111,23 +111,23 @@ class CategoryDetailApiView(APIView):
 
     # 1. List all
     def get(self, request, *args, **kwargs):
-        '''
+        """
         List all the todo items for given requested user
-        '''
+        """
         todos = Todo.objects.filter(user_id = request.user.id)
         serializer = TodoSerializer(todos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 2. Create
     def post(self, request, *args, **kwargs):
-        '''
+        """
         Create the Todo with given todo data
-        '''
+        """
         data = {
-            'title': request.data.get('title'),
-            'description': request.data.get('description'),
-            'category_id': request.data.get('category_id'),
-            'user_id': request.user.id,
+            "title": request.data.get("title"),
+            "description": request.data.get("description"),
+            "category_id": request.data.get("category_id"),
+            "user_id": request.user.id,
         }
         serializer = TodoSerializer(data=data)
         if serializer.is_valid():
@@ -142,9 +142,9 @@ class TodoDetailApiView(APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, todo_id, user_id):
-        '''
+        """
         Helper method to get the object with given todo_id, and user_id
-        '''
+        """
         try:
             return Todo.objects.get(id=todo_id, user_id = user_id)
         except Todo.DoesNotExist:
@@ -152,9 +152,9 @@ class TodoDetailApiView(APIView):
 
     # 3. Retrieve
     def get(self, request, todo_id, *args, **kwargs):
-        '''
+        """
         Retrieves the Todo with given todo_id
-        '''
+        """
         todo_instance = self.get_object(todo_id, request.user.id)
         if not todo_instance:
             return Response(
@@ -167,9 +167,9 @@ class TodoDetailApiView(APIView):
 
     # 4. Update
     def put(self, request, todo_id, *args, **kwargs):
-        '''
+        """
         Updates the todo item with given todo_id if exists
-        '''
+        """
         todo_instance = self.get_object(todo_id, request.user.id)
         if not todo_instance:
             return Response(
@@ -177,10 +177,10 @@ class TodoDetailApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'title': request.data.get('title'),
-            'description': request.data.get('description'),
-            'category_id': request.data.get('category_id'),
-            'user_id': request.user.id,
+            "title": request.data.get("title"),
+            "description": request.data.get("description"),
+            "category_id": request.data.get("category_id"),
+            "user_id": request.user.id,
         }
         serializer = TodoSerializer(instance = todo_instance, data=data, partial = True)
         if serializer.is_valid():
@@ -190,9 +190,9 @@ class TodoDetailApiView(APIView):
 
     # 5. Delete
     def delete(self, request, todo_id, *args, **kwargs):
-        '''
+        """
         Deletes the todo item with given todo_id if exists
-        '''
+        """
         todo_instance = self.get_object(todo_id, request.user.id)
         if not todo_instance:
             return Response(

@@ -25,24 +25,24 @@ class {{mod.name}}ListApiView(APIView):
 
     # 1. List all
     def get(self, request, *args, **kwargs):
-        '''
+        """
         List all the {{mod.name.lower()}} items for given requested user
-        '''
+        """
         {{mod.name.lower()}}s = {{mod.name}}.objects.filter(user_id = request.user.id)
         serializer = {{mod.name}}Serializer({{mod.name.lower()}}s, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 2. Create
     def post(self, request, *args, **kwargs):
-        '''
+        """
         Create the {{mod.name}} with given {{mod.name.lower()}} data
-        '''
+        """
         data = {
             {%- for attrib in mod.attributs -%}
             {%- if attrib.type == "reference" and attrib.model == "User" %}
-            '{{ attrib.name }}': request.user.id,
+            "{{ attrib.name }}": request.user.id,
             {%- else %}
-            '{{ attrib.name }}': request.data.get('{{ attrib.name }}'),
+            "{{ attrib.name }}": request.data.get("{{ attrib.name }}"),
             {%- endif -%}
             {%- endfor %}
         }
@@ -59,9 +59,9 @@ class {{mod.name}}DetailApiView(APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, {{mod.name.lower()}}_id, user_id):
-        '''
+        """
         Helper method to get the object with given {{mod.name.lower()}}_id, and user_id
-        '''
+        """
         try:
             return {{mod.name}}.objects.get(id={{mod.name.lower()}}_id, user_id = user_id)
         except {{mod.name}}.DoesNotExist:
@@ -69,9 +69,9 @@ class {{mod.name}}DetailApiView(APIView):
 
     # 3. Retrieve
     def get(self, request, {{mod.name.lower()}}_id, *args, **kwargs):
-        '''
+        """
         Retrieves the {{mod.name}} with given {{mod.name.lower()}}_id
-        '''
+        """
         {{mod.name.lower()}}_instance = self.get_object({{mod.name.lower()}}_id, request.user.id)
         if not {{mod.name.lower()}}_instance:
             return Response(
@@ -84,9 +84,9 @@ class {{mod.name}}DetailApiView(APIView):
 
     # 4. Update
     def put(self, request, {{mod.name.lower()}}_id, *args, **kwargs):
-        '''
+        """
         Updates the {{mod.name.lower()}} item with given {{mod.name.lower()}}_id if exists
-        '''
+        """
         {{mod.name.lower()}}_instance = self.get_object({{mod.name.lower()}}_id, request.user.id)
         if not {{mod.name.lower()}}_instance:
             return Response(
@@ -96,9 +96,9 @@ class {{mod.name}}DetailApiView(APIView):
         data = {
             {%- for attrib in mod.attributs -%}
             {%- if attrib.type == "reference" and attrib.model == "User" %}
-            '{{ attrib.name }}': request.user.id,
+            "{{ attrib.name }}": request.user.id,
             {%- else %}
-            '{{ attrib.name }}': request.data.get('{{ attrib.name }}'),
+            "{{ attrib.name }}": request.data.get("{{ attrib.name }}"),
             {%- endif -%}
             {%- endfor %}
         }
@@ -110,9 +110,9 @@ class {{mod.name}}DetailApiView(APIView):
 
     # 5. Delete
     def delete(self, request, {{mod.name.lower()}}_id, *args, **kwargs):
-        '''
+        """
         Deletes the {{mod.name.lower()}} item with given {{mod.name.lower()}}_id if exists
-        '''
+        """
         {{mod.name.lower()}}_instance = self.get_object({{mod.name.lower()}}_id, request.user.id)
         if not {{mod.name.lower()}}_instance:
             return Response(

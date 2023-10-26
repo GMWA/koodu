@@ -15,22 +15,22 @@ class PostListApiView(APIView):
 
     # 1. List all
     def get(self, request, *args, **kwargs):
-        '''
+        """
         List all the post items for given requested user
-        '''
+        """
         posts = Post.objects.filter(user_id = request.user.id)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 2. Create
     def post(self, request, *args, **kwargs):
-        '''
+        """
         Create the Post with given post data
-        '''
+        """
         data = {
-            'title': request.data.get('title'),
-            'text': request.data.get('text'),
-            'user_id': request.user.id,
+            "title": request.data.get("title"),
+            "text": request.data.get("text"),
+            "user_id": request.user.id,
         }
         serializer = PostSerializer(data=data)
         if serializer.is_valid():
@@ -45,9 +45,9 @@ class PostDetailApiView(APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, post_id, user_id):
-        '''
+        """
         Helper method to get the object with given post_id, and user_id
-        '''
+        """
         try:
             return Post.objects.get(id=post_id, user_id = user_id)
         except Post.DoesNotExist:
@@ -55,9 +55,9 @@ class PostDetailApiView(APIView):
 
     # 3. Retrieve
     def get(self, request, post_id, *args, **kwargs):
-        '''
+        """
         Retrieves the Post with given post_id
-        '''
+        """
         post_instance = self.get_object(post_id, request.user.id)
         if not post_instance:
             return Response(
@@ -70,9 +70,9 @@ class PostDetailApiView(APIView):
 
     # 4. Update
     def put(self, request, post_id, *args, **kwargs):
-        '''
+        """
         Updates the post item with given post_id if exists
-        '''
+        """
         post_instance = self.get_object(post_id, request.user.id)
         if not post_instance:
             return Response(
@@ -80,9 +80,9 @@ class PostDetailApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'title': request.data.get('title'),
-            'text': request.data.get('text'),
-            'user_id': request.user.id,
+            "title": request.data.get("title"),
+            "text": request.data.get("text"),
+            "user_id": request.user.id,
         }
         serializer = PostSerializer(instance = post_instance, data=data, partial = True)
         if serializer.is_valid():
@@ -92,9 +92,9 @@ class PostDetailApiView(APIView):
 
     # 5. Delete
     def delete(self, request, post_id, *args, **kwargs):
-        '''
+        """
         Deletes the post item with given post_id if exists
-        '''
+        """
         post_instance = self.get_object(post_id, request.user.id)
         if not post_instance:
             return Response(
