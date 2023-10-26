@@ -2,6 +2,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+
 from todo.dependencies import get_db
 from todo.models import Category as CategoryModel
 from todo.schemas.categories import Category as CategorySchema

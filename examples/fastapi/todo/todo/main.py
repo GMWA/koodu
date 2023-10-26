@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
-
 load_dotenv()
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from todo.routers.users import router as users_router
 from todo.routers.categories import router as categories_router
 from todo.routers.todos import router as todos_router
-from todo.routers.users import router as users_router
 
 app = FastAPI()
 app.include_router(users_router)
