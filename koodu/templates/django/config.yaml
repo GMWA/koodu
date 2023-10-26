@@ -136,3 +136,11 @@ templates:
     type: py
     is_base: False
     is_macro: False
+  - template_path: readme.jinja
+    file_path: /
+    path: /
+    name: readme
+    file_name: README
+    type: md
+    is_base: False
+    is_macro: False
