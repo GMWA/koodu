@@ -4,23 +4,27 @@ from django.db import models
 from django.contrib.auth.models import User
 {%- macro get_field(typename, size) -%}
 {%- if typename == "String" or typename == "Text" -%}
-models.CharField(max_length = {{size}})
+models.CharField(max_length={{size}})
 {%- elif typename == "reference" -%}
-models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
+models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 {%- elif typename == "Integer" -%}
-models.CharField(max_length = {{size}})
+models.IntegerField()
+{%- elif typename == "DateTime" -%}
+models.DateTimeField(auto_now=False, auto_now_add=False)
+{%- elif typename == "Date" -%}
+models.DateField(auto_now=False, auto_now_add=False)
+{%- elif typename == "Time" -%}
+models.TimeField(auto_now=False, auto_now_add=False)
 {%- elif typename == "Boolean" -%}
-models.BooleanField(default = False, blank = True)
+models.BooleanField(default=False, blank=True)
 {%- endif -%}
 {%- endmacro %}
 
 {% for mod in full_model.models %}
-{%- if mod.name != "User" -%}
 class {{mod.name}}(models.Model):
     {% for attrib in mod.attributs -%}
     {{ attrib.name }} = {{ get_field(attrib.type, attrib.size) }}
     {% endfor %}
     def __str__(self):
         return self.id
-{%- endif -%}
 {% endfor %}

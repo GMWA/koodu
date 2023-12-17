@@ -65,7 +65,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apiadmin.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apiadmin
     file_name: admin
@@ -73,7 +73,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apiapps.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apps
     file_name: apps
@@ -81,7 +81,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apiinit.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apiinit
     file_name: __init__
@@ -89,7 +89,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apimodels.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apimodels
     file_name: models
@@ -97,7 +97,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apiserializers.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apiserializers
     file_name: serializers
@@ -105,7 +105,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apitests.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apitests
     file_name: tests
@@ -113,7 +113,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apiurls.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apiurls
     file_name: urls
@@ -121,7 +121,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apiviews.jinja
-    file_path: /{{full_model.name.lower()}}_api/
+    file_path: /{{full_model.name.lower()}}/
     path: /
     name: apiviews
     file_name: views
@@ -129,7 +129,7 @@ templates:
     is_base: False
     is_macro: False
   - template_path: apimigrationsinit.jinja
-    file_path: /{{full_model.name.lower()}}_api/migrations/
+    file_path: /{{full_model.name.lower()}}/migrations/
     path: /
     name: apimigrationsinit
     file_name: __init__
