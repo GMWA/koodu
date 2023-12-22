@@ -2,20 +2,20 @@ from django.db import models
 
 # Create your models here.
 from django.contrib.auth.models import User
-{%- macro get_field(typename, size) -%}
-{%- if typename == "String" or typename == "Text" -%}
-models.CharField(max_length={{size}})
-{%- elif typename == "reference" -%}
-models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-{%- elif typename == "Integer" -%}
+{%- macro get_field(attrib) -%}
+{%- if attrib.type == "String" or attrib.type == "Text" -%}
+models.CharField(max_length={{attrib.size}})
+{%- elif attrib.type == "reference" -%}
+models.ForeignKey({{attrib.model}}, on_delete=models.CASCADE, blank=True, null=True)
+{%- elif attrib.type == "Integer" -%}
 models.IntegerField()
-{%- elif typename == "DateTime" -%}
+{%- elif attrib.type == "DateTime" -%}
 models.DateTimeField(auto_now=False, auto_now_add=False)
-{%- elif typename == "Date" -%}
+{%- elif attrib.type == "Date" -%}
 models.DateField(auto_now=False, auto_now_add=False)
-{%- elif typename == "Time" -%}
+{%- elif attrib.type == "Time" -%}
 models.TimeField(auto_now=False, auto_now_add=False)
-{%- elif typename == "Boolean" -%}
+{%- elif attrib.type == "Boolean" -%}
 models.BooleanField(default=False, blank=True)
 {%- endif -%}
 {%- endmacro %}
@@ -23,7 +23,7 @@ models.BooleanField(default=False, blank=True)
 {% for mod in full_model.models %}
 class {{mod.name}}(models.Model):
     {% for attrib in mod.attributs -%}
-    {{ attrib.name }} = {{ get_field(attrib.type, attrib.size) }}
+    {{ attrib.name }} = {{ get_field(attrib) }}
     {% endfor %}
     def __str__(self):
         return self.id

@@ -5,5 +5,5 @@ from {{full_model.name.lower()}} import urls as {{full_model.name.lower()}}_urls
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
-    path("{{full_model.name.lower()}}s/", include({{full_model.name.lower()}}_urls)),
+    path("api/", include({{full_model.name.lower()}}_urls)),
 ]
