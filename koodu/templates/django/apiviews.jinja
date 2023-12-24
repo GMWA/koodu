@@ -4,21 +4,16 @@ from rest_framework import status
 from rest_framework import permissions
 from .models import (
     {%- for mod in full_model.models %}
-    {%- if mod.name != "User" %}
     {{mod.name}},
-    {%- endif -%}
     {%- endfor %}
 )
 from .serializers import (
     {%- for mod in full_model.models %}
-    {%- if mod.name != "User" %}
     {{mod.name}}Serializer,
-    {%- endif -%}
     {%- endfor %}
 )
 
 {% for mod in full_model.models %}
-{%- if mod.name != "User" -%}
 class {{mod.name}}ListApiView(APIView):
     # add permission to check if user is authenticated
     # permission_classes = [permissions.IsAuthenticated]
@@ -26,9 +21,9 @@ class {{mod.name}}ListApiView(APIView):
     # 1. List all
     def get(self, request, *args, **kwargs):
         """
-        List all the {{mod.name.lower()}} items for given requested user
+        List all the {{mod.name.lower()}} items.
         """
-        {{mod.name.lower()}}s = {{mod.name}}.objects.filter(user_id = request.user.id)
+        {{mod.name.lower()}}s = {{mod.name}}.objects.all()
         serializer = {{mod.name}}Serializer({{mod.name.lower()}}s, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -57,16 +52,16 @@ class {{mod.name}}ListApiView(APIView):
 class {{mod.name}}DetailApiView(APIView):
     # add permission to check if user is authenticated
     # permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self, {{mod.name.lower()}}_id, user_id):
+{%- if mod.name != "User" %}
+    def get_object(self, {{mod.name.lower()}}_id):
         """
-        Helper method to get the object with given {{mod.name.lower()}}_id, and user_id
+        Helper method to get the object with given {{mod.name.lower()}}_id
         """
         try:
-            return {{mod.name}}.objects.get(id={{mod.name.lower()}}_id, user_id = user_id)
+            return {{mod.name}}.objects.get(id={{mod.name.lower()}}_id)
         except {{mod.name}}.DoesNotExist:
             return None
-
+{%- endif -%}
     # 3. Retrieve
     def get(self, request, {{mod.name.lower()}}_id, *args, **kwargs):
         """
@@ -124,5 +119,4 @@ class {{mod.name}}DetailApiView(APIView):
             {"res": "Object deleted!"},
             status=status.HTTP_200_OK
         )
-{%- endif -%}
 {% endfor %}

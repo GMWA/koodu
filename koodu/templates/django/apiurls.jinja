@@ -11,8 +11,8 @@ from .views import (
 urlpatterns = [
     {%- for mod in full_model.models %}
     {%- if mod.name != "User" %}
-    path("api", {{mod.name}}ListApiView.as_view()),
-    path("api/<int:{{mod.name.lower()}}_id>/", {{mod.name}}DetailApiView.as_view()),
+    path("{{mod.name.lower()}}s", {{mod.name}}ListApiView.as_view()),
+    path("{{mod.name.lower()}}s/<int:{{mod.name.lower()}}_id>/", {{mod.name}}DetailApiView.as_view()),
     {%- endif -%}
     {%- endfor %}
 ]
