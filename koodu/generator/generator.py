@@ -17,13 +17,10 @@ from jinja2.exceptions import TemplateNotFound
 
 from koodu.exceptions import MissingModelException
 from koodu.generator.file import File
+from koodu.generator.models import GeneratorModelSchema, TemplateSchema
 from koodu.generator.utils import (
     ConfigSchema,
     load_template_config,
-)
-from koodu.generator.models import (
-    GeneratorModelSchema,
-    TemplateSchema
 )
 
 

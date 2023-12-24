@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Dict
 
 import yaml
+
 from koodu.generator.models import ConfigSchema
 
 

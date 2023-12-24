@@ -1,8 +1,10 @@
 import unittest
-from pydantic import ValidationError
+
 import pytest
+from pydantic import ValidationError
 
 from koodu.generator.models import AttributSchema
+
 
 class TestKooduModel(unittest.TestCase):
     def setUp(self):
@@ -57,7 +59,7 @@ class TestKooduModel(unittest.TestCase):
             "primary_key": True,
             "index_key": False,
             "unique_key": False,
-            "required": True
+            "required": True,
         }
         with pytest.raises(ValidationError):
             AttributSchema(**data)
