@@ -1,24 +1,8 @@
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict
 
 import yaml
-from pydantic import BaseModel
-
-
-class TemplateConfigSchema(BaseModel):
-    template_path: str
-    file_path: Union[str, None] = None
-    path: Union[str, None] = None
-    name: str
-    file_name: Union[str, None] = None
-    type: Union[str, None] = None
-    is_base: Union[bool, None] = False
-    is_macro: Union[bool, None] = False
-
-
-class ConfigSchema(BaseModel):
-    name: Union[str, None] = None
-    templates: List[Union[TemplateConfigSchema, None]] = None
+from koodu.generator.models import ConfigSchema
 
 
 def get_all_files(folder: Path) -> Dict[str, Path]:

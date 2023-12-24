@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict, List
 
 from jinja2 import (
     DictLoader as JDictLoader,
@@ -14,7 +14,6 @@ from jinja2 import (
     Template as JTemplate,
 )
 from jinja2.exceptions import TemplateNotFound
-from pydantic import BaseModel
 
 from koodu.exceptions import MissingModelException
 from koodu.generator.file import File
@@ -22,35 +21,10 @@ from koodu.generator.utils import (
     ConfigSchema,
     load_template_config,
 )
-
-
-class AttributSchema(BaseModel):
-    name: str
-    type: str
-    size: int
-    primary_key: bool = False
-    index_key: bool = False
-    unique_key: bool = False
-    required: bool = False
-
-
-class ModelSchema(BaseModel):
-    name: str
-    attributs: List[AttributSchema]
-
-
-class TemplateSchema(BaseModel):
-    template_code: str
-    name: str
-    path: str
-    file_name: str
-    type: Union[str, None] = None
-    file_path: str
-
-
-class GeneratorModelSchema(BaseModel):
-    name: str
-    models: List[AttributSchema]
+from koodu.generator.models import (
+    GeneratorModelSchema,
+    TemplateSchema
+)
 
 
 class SingleModelView:

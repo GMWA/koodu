@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Optional
 from pydantic import BaseModel, ValidationError, validator
 
 from koodu.generator.enums import ModelTypeEmum
@@ -7,25 +7,25 @@ from koodu.generator.enums import ModelTypeEmum
 class AttributSchema(BaseModel):
     name: str
     type: ModelTypeEmum
-    size: int
+    size: Optional[int] = None
     primary_key: bool = False
     index_key: bool = False
     unique_key: bool = False
     required: bool = False
     model: str = None
 
-    @validator('model', pre=True, always=True)
+    @validator("model", pre=True, always=True)
     def check_required_model(cls, value, values):
-        attribute_type = values.get('type')
+        attribute_type = values.get("type")
         if attribute_type == ModelTypeEmum.ref and not value:
-            raise ValidationError('Model is required when the type is reference')
+            raise ValidationError("Model is required when the type is reference")
         return value
 
-    @validator('size', pre=True, always=True)
+    @validator("size", pre=True, always=True)
     def check_required_size(cls, value, values):
-        attribute_type = values.get('type')
+        attribute_type = values.get("type")
         if attribute_type == ModelTypeEmum.string and not value:
-            raise ValidationError('Size is required when the type is String')
+            raise ValidationError("Size is required when the type is String")
         return value
 
 
