@@ -34,6 +34,14 @@ class ModelSchema(BaseModel):
     name: str
     attributs: List[AttributSchema]
 
+    @validator("attributs", pre=True, always=True)
+    def check_reference_size(cls, values):
+        models = list(map(lambda x: x["name"], values))
+        for value in values:
+            if value["type"] == ModelTypeEmum.ref and value["model"] not in models:
+                raise ValidationError("Ref model does not exist")
+        return values
+
 
 class TemplateSchema(BaseModel):
     template_code: str
