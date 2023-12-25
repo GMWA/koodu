@@ -3,14 +3,14 @@ import unittest
 import pytest
 from pydantic import ValidationError
 
-from koodu.generator.models import AttributSchema
+from koodu.generator.models import AttributSchema, ModelSchema
 
 
 class TestKooduModel(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_create_model(self):
+    def test_attribut_model(self):
         data = {
             "name": "name",
             "type": "String",
@@ -63,3 +63,51 @@ class TestKooduModel(unittest.TestCase):
         }
         with pytest.raises(ValidationError):
             AttributSchema(**data)
+
+    def test_create_model(self):
+        model = {
+            "name": "Test Model",
+            "attributs": [
+                {
+                    "name": "Model1",
+                    "type": "String",
+                    "size": 255,
+                    "primary_key": True,
+                    "index_key": False,
+                    "unique_key": False,
+                    "required": True,
+                    "model": None,
+                },
+                {
+                    "name": "Model2",
+                    "type": "reference",
+                    "model": "Model1",
+                }
+            ]
+        }
+        mod = ModelSchema(**model)
+        self.assertTrue(isinstance(mod, ModelSchema))
+
+    def test_create_model_bad_ref(self):
+        model = {
+            "name": "Test Model",
+            "attributs": [
+                {
+                    "name": "Model1",
+                    "type": "String",
+                    "size": 255,
+                    "primary_key": True,
+                    "index_key": False,
+                    "unique_key": False,
+                    "required": True,
+                    "model": None,
+                },
+                {
+                    "name": "Model2",
+                    "type": "reference",
+                    "model": "BadModel",
+                }
+            ]
+        }
+        with pytest.raises(ValidationError):
+            ModelSchema(**model)
