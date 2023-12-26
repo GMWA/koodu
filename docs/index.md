@@ -1,6 +1,6 @@
-<p align="center">
-  <a href="https://gmwa.github.io/koodu/"><img src="https://github.com/GMWA/koodu/blob/main/docs/assets/images/koodu.png" alt="Koodu"></a>
-</p>
+
+![Koodu overview](assets/images/koodu.png)
+
 <p align="center">
     <em>Koodu, simple code generator engine written in python.</em>
 </p>
