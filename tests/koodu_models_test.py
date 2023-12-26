@@ -82,8 +82,8 @@ class TestKooduModel(unittest.TestCase):
                     "name": "Model2",
                     "type": "reference",
                     "model": "Model1",
-                }
-            ]
+                },
+            ],
         }
         mod = ModelSchema(**model)
         self.assertTrue(isinstance(mod, ModelSchema))
@@ -106,8 +106,8 @@ class TestKooduModel(unittest.TestCase):
                     "name": "Model2",
                     "type": "reference",
                     "model": "BadModel",
-                }
-            ]
+                },
+            ],
         }
         with pytest.raises(ValidationError):
             ModelSchema(**model)

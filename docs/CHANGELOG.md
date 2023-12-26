@@ -1,5 +1,12 @@
 # Change logs
 
+### 0.0.3
+
+* implement pydantic models validations
+* tests for pydantics models
+* enums for availabe types and available templates
+* fix some bugs on the django templates
+
 ### 0.0.2
 
 * FastApi Templates: Add new template for Makefile, Readme and Docker
