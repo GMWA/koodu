@@ -54,7 +54,7 @@ class TemplateSchema(BaseModel):
 
 class GeneratorModelSchema(BaseModel):
     name: str
-    models: List[AttributSchema]
+    models: List[ModelSchema]
 
 
 class TemplateConfigSchema(BaseModel):
