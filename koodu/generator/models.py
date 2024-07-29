@@ -17,14 +17,14 @@ class AttributSchema(BaseModel):
 
     @field_validator("model", mode='before', check_fields=False)
     def check_required_model(cls, value, values):
-        attribute_type = values.get("type")
+        attribute_type = values["type"]
         if attribute_type == ModelTypeEmum.ref and not value:
             raise ValidationError("Model is required when the type is reference")
         return value
 
     @field_validator("size", mode='before', check_fields=False)
     def check_required_size(cls, value, values):
-        attribute_type = values.get("type")
+        attribute_type = values["type"]
         if attribute_type == ModelTypeEmum.string and not value:
             raise ValidationError("Size is required when the type is String")
         return value
@@ -36,10 +36,10 @@ class ModelSchema(BaseModel):
 
     @field_validator("attributs", mode='before', check_fields=False)
     def check_reference_size(cls, values):
-        models = list(map(lambda x: x["name"], values))
+        models = [x["name"] for x in values]
         for value in values:
             if value["type"] == ModelTypeEmum.ref and value["model"] not in models:
-                raise ValidationError("Ref model does not exist")
+                raise ValueError(f"Ref model '{value['model']}' does not exist")
         return values
 
 
