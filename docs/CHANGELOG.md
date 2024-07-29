@@ -3,6 +3,9 @@
 ### 0.0.4
 
 -   Update pydantic version to >= 2.7.3
+-   Update django version to >= 4.2.14
+-   Update fastapi's template to use pydantic >= 2.7.3
+-   Update django's template to use django >= 4.2.14
 
 ### 0.0.3
 
