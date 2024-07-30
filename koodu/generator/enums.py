@@ -4,7 +4,7 @@ from enum import Enum
 class ModelTypeEmum(str, Enum):
     string = "String"
     integer = "Integer"
-    bollean = "Boolean"
+    boolean = "Boolean"
     date_and_time = "DateTime"
     just_date = "Date"
     ref = "reference"

@@ -15,7 +15,7 @@ class AttributSchema(BaseModel):
     required: bool = False
     model: str = None
 
-    @model_validator(mode='after')
+    @model_validator(mode='before')
     def validate(self):
         attribute_type = self.type
         attribute_model = self.model
@@ -60,7 +60,7 @@ class ModelSchema(BaseModel):
     name: str
     attributs: List[AttributSchema]
 
-    @model_validator(mode='after')
+    @model_validator(mode='before')
     def validate(self):
         models = [attrib.name for attrib in self.attributs]
         for attr in self.attributs:
