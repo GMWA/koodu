@@ -17,9 +17,9 @@ class AttributSchema(BaseModel):
 
     @model_validator(mode='before')
     def validate(self):
-        attribute_type = self.type
-        attribute_model = self.model
-        attribut__type = self.type
+        attribute_type = self.get('type', '')
+        attribute_model = self.get('model', None)
+        attribute_size = self.get('size', '')
         if attribute_type not in ModelTypeEmum:
             raise ValidationError(
                 [
@@ -42,7 +42,7 @@ class AttributSchema(BaseModel):
                 ],
                 self,
             )
-        if attribute_type == ModelTypeEmum.string and not attribut__type:
+        if attribute_type == ModelTypeEmum.string and not attribute_size:
             raise ValidationError(
                 [
                     {
@@ -62,14 +62,14 @@ class ModelSchema(BaseModel):
 
     @model_validator(mode='before')
     def validate(self):
-        models = [attrib.name for attrib in self.attributs]
-        for attr in self.attributs:
-            if attr.type == ModelTypeEmum.ref and attr.model not in models:
+        models = [attrib.get("name", "") for attrib in self.get('attributs', [])]
+        for attr in self.get('attributs', []):
+            if attr.get("type", "") == ModelTypeEmum.ref and attr.get('model', '') not in models:
                 raise ValidationError(
                     [
                         {
                             "loc": ["attributs"],
-                            "msg": f"Ref model {attr.model} is not a valid model",
+                            "msg": f"Ref model {attr.get('model', '')} is not a valid model",
                             "type": "value_error",
                         }
                     ],
