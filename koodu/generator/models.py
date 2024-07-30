@@ -1,6 +1,6 @@
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, ValidationError, field_validator
+from pydantic import BaseModel, ValidationError, model_validator
 
 from koodu.generator.enums import ModelTypeEmum
 
@@ -15,32 +15,67 @@ class AttributSchema(BaseModel):
     required: bool = False
     model: str = None
 
-    @field_validator("model", mode='before', check_fields=False)
-    def check_required_model(cls, value, values):
-        attribute_type = values["type"]
-        if attribute_type == ModelTypeEmum.ref and not value:
-            raise ValidationError("Model is required when the type is reference")
-        return value
-
-    @field_validator("size", mode='before', check_fields=False)
-    def check_required_size(cls, value, values):
-        attribute_type = values["type"]
-        if attribute_type == ModelTypeEmum.string and not value:
-            raise ValidationError("Size is required when the type is String")
-        return value
+    @model_validator(mode='after')
+    def validate(self):
+        attribute_type = self.type
+        attribute_model = self.model
+        attribut__type = self.type
+        if attribute_type not in ModelTypeEmum:
+            raise ValidationError(
+                [
+                    {
+                        "loc": ["model"],
+                        "msg": "Type is not valid",
+                        "type": "value_error",
+                    }
+                ],
+                self,
+            )
+        if attribute_type == ModelTypeEmum.ref and not attribute_model:
+            raise ValidationError(
+                [
+                    {
+                        "loc": ["model"],
+                        "msg": "Model is required when the type is reference",
+                        "type": "value_error",
+                    }
+                ],
+                self,
+            )
+        if attribute_type == ModelTypeEmum.string and not attribut__type:
+            raise ValidationError(
+                [
+                    {
+                        "loc": ["model"],
+                        "msg": "Size is required when the type is String",
+                        "type": "value_error",
+                    }
+                ],
+                self,
+            )
+        return self
 
 
 class ModelSchema(BaseModel):
     name: str
     attributs: List[AttributSchema]
 
-    @field_validator("attributs", mode='before', check_fields=False)
-    def check_reference_size(cls, values):
-        models = [x["name"] for x in values]
-        for value in values:
-            if value["type"] == ModelTypeEmum.ref and value["model"] not in models:
-                raise ValueError(f"Ref model '{value['model']}' does not exist")
-        return values
+    @model_validator(mode='after')
+    def validate(self):
+        models = [attrib.name for attrib in self.attributs]
+        for attr in self.attributs:
+            if attr.type == ModelTypeEmum.ref and attr.model not in models:
+                raise ValidationError(
+                    [
+                        {
+                            "loc": ["attributs"],
+                            "msg": f"Ref model {attr.model} is not a valid model",
+                            "type": "value_error",
+                        }
+                    ],
+                    self,
+                )
+        return self
 
 
 class TemplateSchema(BaseModel):
