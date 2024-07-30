@@ -31,7 +31,7 @@ class AttributSchema(BaseModel):
                 ],
                 self,
             )
-        if attribute_type == ModelTypeEmum.ref and not attribute_model:
+        if attribute_type == ModelTypeEmum.ref.value and not attribute_model:
             raise ValidationError(
                 [
                     {
@@ -42,7 +42,7 @@ class AttributSchema(BaseModel):
                 ],
                 self,
             )
-        if attribute_type == ModelTypeEmum.string and not attribute_size:
+        if attribute_type == ModelTypeEmum.string.value and not attribute_size:
             raise ValidationError(
                 [
                     {
