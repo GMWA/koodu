@@ -64,7 +64,7 @@ class ModelSchema(BaseModel):
     def validate(self):
         models = [attrib.get("name", "") for attrib in self.get('attributs', [])]
         for attr in self.get('attributs', []):
-            if attr.get("type", "") == ModelTypeEmum.ref and attr.get('model', '') not in models:
+            if attr.get("type", "") == ModelTypeEmum.ref.value and attr.get('model', '') not in models:
                 raise ValidationError(
                     [
                         {
