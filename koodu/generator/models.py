@@ -19,8 +19,8 @@ class AttributSchema(BaseModel):
     def validate(self):
         attribute_type = self.get('type', '')
         attribute_model = self.get('model', None)
-        attribute_size = self.get('size', '')
-        if not isinstance(attribute_type, ModelTypeEmum):
+        attribute_size = self.get('size', )
+        if attribute_type not in [item.value for item in ModelTypeEmum]:
             raise ValidationError(
                 [
                     {
