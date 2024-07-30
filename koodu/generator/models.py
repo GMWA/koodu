@@ -20,7 +20,7 @@ class AttributSchema(BaseModel):
         attribute_type = self.get('type', '')
         attribute_model = self.get('model', None)
         attribute_size = self.get('size', '')
-        if attribute_type not in ModelTypeEmum:
+        if not isinstance(attribute_type, ModelTypeEmum):
             raise ValidationError(
                 [
                     {
