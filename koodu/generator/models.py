@@ -1,8 +1,9 @@
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, ValidationError, model_validator
+from pydantic import BaseModel, model_validator
 
 from koodu.generator.enums import ModelTypeEmum
+from koodu.exceptions import ModelValidationError
 
 
 class AttributSchema(BaseModel):
@@ -13,46 +14,19 @@ class AttributSchema(BaseModel):
     index_key: bool = False
     unique_key: bool = False
     required: bool = False
-    model: str = None
+    model: Optional[str] = None
 
-    @model_validator(mode='before')
+    @model_validator(mode='after')
     def validate(self):
-        attribute_type = self.get('type', '')
-        attribute_model = self.get('model', None)
-        attribute_size = self.get('size', )
-        if attribute_type not in [item.value for item in ModelTypeEmum]:
-            raise ValidationError(
-                [
-                    {
-                        "loc": ["model"],
-                        "msg": "Type is not valid",
-                        "type": "value_error",
-                    }
-                ],
-                self,
-            )
+        attribute_type = self.type
+        attribute_model = self.model
+        attribute_size = self.size
+        if attribute_type not in [item for item in ModelTypeEmum]:
+            raise ModelValidationError("Type is not valid")
         if attribute_type == ModelTypeEmum.ref.value and not attribute_model:
-            raise ValidationError(
-                [
-                    {
-                        "loc": ["model"],
-                        "msg": "Model is required when the type is reference",
-                        "type": "value_error",
-                    }
-                ],
-                self,
-            )
+            raise ModelValidationError("Model is required when the type is reference")
         if attribute_type == ModelTypeEmum.string.value and not attribute_size:
-            raise ValidationError(
-                [
-                    {
-                        "loc": ["model"],
-                        "msg": "Size is required when the type is String",
-                        "type": "value_error",
-                    }
-                ],
-                self,
-            )
+            raise ModelValidationError("Size is required when the type is string")
         return self
 
 
@@ -60,21 +34,12 @@ class ModelSchema(BaseModel):
     name: str
     attributs: List[AttributSchema]
 
-    @model_validator(mode='before')
+    @model_validator(mode='after')
     def validate(self):
-        models = [attrib.get("name", "") for attrib in self.get('attributs', [])]
-        for attr in self.get('attributs', []):
-            if attr.get("type", "") == ModelTypeEmum.ref.value and attr.get('model', '') not in models:
-                raise ValidationError(
-                    [
-                        {
-                            "loc": ["attributs"],
-                            "msg": f"Ref model {attr.get('model', '')} is not a valid model",
-                            "type": "value_error",
-                        }
-                    ],
-                    self,
-                )
+        models = [attrib.name for attrib in self.attributs]
+        for attr in self.attributs:
+            if attr.type == ModelTypeEmum.ref.value and attr.model not in models:
+                raise ModelValidationError("Reference model not found")
         return self
 
 

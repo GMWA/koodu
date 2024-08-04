@@ -1,9 +1,9 @@
 import unittest
 
 import pytest
-from pydantic import ValidationError
-
 from koodu.generator.models import AttributSchema, ModelSchema
+from pydantic import ValidationError
+from koodu.exceptions import ModelValidationError
 
 
 class TestKooduModel(unittest.TestCase):
@@ -49,7 +49,7 @@ class TestKooduModel(unittest.TestCase):
             "required": True,
             "model": None,
         }
-        with pytest.raises(ValidationError):
+        with pytest.raises(ModelValidationError):
             AttributSchema(**data)
 
     def test_int_without_size(self):
@@ -61,7 +61,7 @@ class TestKooduModel(unittest.TestCase):
             "unique_key": False,
             "required": True,
         }
-        with pytest.raises(ValidationError):
+        with pytest.raises(ModelValidationError):
             AttributSchema(**data)
 
     def test_create_model(self):
@@ -109,5 +109,5 @@ class TestKooduModel(unittest.TestCase):
                 },
             ],
         }
-        with pytest.raises(ValidationError):
+        with pytest.raises(ModelValidationError):
             ModelSchema(**model)
