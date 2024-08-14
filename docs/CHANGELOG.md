@@ -1,6 +1,6 @@
 # Change logs
 
-### 0.0.4
+### 0.0.5
 
 -   Update pydantic version to >= 2.7.3
 -   Update django version to >= 4.2.14
