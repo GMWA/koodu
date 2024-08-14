@@ -1,8 +1,9 @@
 from typing import List, Optional, Union
 
-from pydantic import BaseModel, ValidationError, validator
+from pydantic import BaseModel, model_validator
 
 from koodu.generator.enums import ModelTypeEmum
+from koodu.exceptions import ModelValidationError
 
 
 class AttributSchema(BaseModel):
@@ -13,34 +14,33 @@ class AttributSchema(BaseModel):
     index_key: bool = False
     unique_key: bool = False
     required: bool = False
-    model: str = None
+    model: Optional[str] = None
 
-    @validator("model", pre=True, always=True)
-    def check_required_model(cls, value, values):
-        attribute_type = values.get("type")
-        if attribute_type == ModelTypeEmum.ref and not value:
-            raise ValidationError("Model is required when the type is reference")
-        return value
-
-    @validator("size", pre=True, always=True)
-    def check_required_size(cls, value, values):
-        attribute_type = values.get("type")
-        if attribute_type == ModelTypeEmum.string and not value:
-            raise ValidationError("Size is required when the type is String")
-        return value
+    @model_validator(mode='after')
+    def validate(self):
+        attribute_type = self.type
+        attribute_model = self.model
+        attribute_size = self.size
+        if attribute_type not in [item for item in ModelTypeEmum]:
+            raise ModelValidationError("Type is not valid")
+        if attribute_type == ModelTypeEmum.ref.value and not attribute_model:
+            raise ModelValidationError("Model is required when the type is reference")
+        if attribute_type == ModelTypeEmum.string.value and not attribute_size:
+            raise ModelValidationError("Size is required when the type is string")
+        return self
 
 
 class ModelSchema(BaseModel):
     name: str
     attributs: List[AttributSchema]
 
-    @validator("attributs", pre=True, always=True)
-    def check_reference_size(cls, values):
-        models = list(map(lambda x: x["name"], values))
-        for value in values:
-            if value["type"] == ModelTypeEmum.ref and value["model"] not in models:
-                raise ValidationError("Ref model does not exist")
-        return values
+    @model_validator(mode='after')
+    def validate(self):
+        models = [attrib.name for attrib in self.attributs]
+        for attr in self.attributs:
+            if attr.type == ModelTypeEmum.ref.value and attr.model not in models:
+                raise ModelValidationError("Reference model not found")
+        return self
 
 
 class TemplateSchema(BaseModel):

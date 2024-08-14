@@ -47,4 +47,4 @@ class {{ model.name }}({{ model.name }}Base):
 {%- endfor %}
 
     class Config:
-        orm_mode = True
+        from_attributes = True

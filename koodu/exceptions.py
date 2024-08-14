@@ -35,6 +35,12 @@ class NotFolderException(Exception):
 
 
 class BadArgumentsException(Exception):
-    """Raise the passed arguments are incorect"""
+    """Raise the passed arguments are incortect"""
+
+    pass
+
+
+class ModelValidationError(Exception):
+    """Raise when a reference model is not found"""
 
     pass
