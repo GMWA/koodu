@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://gmwa.github.io/koodu/</loc>
+         <lastmod>2024-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gmwa.github.io/koodu/CHANGELOG/</loc>
+         <lastmod>2024-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gmwa.github.io/koodu/generator/</loc>
+         <lastmod>2024-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gmwa.github.io/koodu/templates/</loc>
+         <lastmod>2024-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://gmwa.github.io/koodu/testing/</loc>
+         <lastmod>2024-08-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
